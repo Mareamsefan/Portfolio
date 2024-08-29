@@ -2,43 +2,48 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="icon" type="image/svg+xml" href="#" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <title>My Journey</title>
   </head>
   <body>
-    <header>
+    <header
+    id="main-header"
+    >
       <nav>
-        <a href="#">Home</a>
+        <a href="index.html">Home</a>
         <a href="#">About me</a>
         <a href="#">Contact</a>
-        <a href="#">Add a Project +</a>
+        <a href="addProject.html">Add a Project +</a>
       </nav>
-      <h1>Maream Sefan</h1>
-      <img src="#" alt="profile-picture">
-      <img src="#" alt="Logo">
+      <section id="bio-container">
+        <img src="https://dummyimage.com/100x100/ffffff/000000.jpg" alt="profile-picture">
+        <h1>Maream Sefan</h1>
+        <p>bio...</p>
+      </section>
     </header>
     <main>
-      <section>
-        <article>
-          <img src="#" alt="project 1 Img">
+      <section id="projects-container">
+        <article class="project">
+          <img src="https://dummyimage.com/300x300/ffffff/000000" alt="project 1 Img">
           <a href="#">title of project</a>
         </article>
-        <article>
-          <img src="#" alt="project 1 Img">
+        <article class="project">
+          <img src="https://dummyimage.com/300x300/ffffff/000000" alt="project 1 Img">
           <a href="#">title of project</a>
         </article>
-        <article>
-          <img src="#" alt="project 1 Img">
+        <article class="project">
+          <img src="https://dummyimage.com/300x300/ffffff/000000" alt="project 1 Img">
           <a href="#">title of project</a>
         </article>
       </section>
     </main>
     <footer>
       <p>Copyright Maream Sefan - My Journey</p>
-      <a href="#">LinkedIn</a>
-      <a href="#">GitHub</a>
+      <a href="https://www.linkedin.com/in/maream-s-a25874255" target="_blank">LinkedIn</a>
+      <a href="https://github.com/Mareamsefan" target="_blank">GitHub</a>
     </footer>
-    <script type="module" src="/main.js"></script>
+    <script type="module" src="/main.js" defer></script>
   </body>
 </html>
