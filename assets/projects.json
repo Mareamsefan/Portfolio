@@ -1,0 +1,14 @@
+{
+    "projects": [
+    {
+      "projectName": "Personal Portfolio Website",
+      "roleAndResponsibilities": "Frontend Developer - Responsible for designing and implementing the user interface.",
+      "projectDescription": "A personal portfolio website showcasing my work, skills, and contact information.",
+      "githubRepository": "https://github.com/username/portfolio-website",
+      "languagesUsed": ["HTML", "CSS", "JavaScript"],
+      "frameworksUsed": ["React", "Bootstrap"],
+      "startDate": "2023-05-01",
+      "pictureURL": "https://example.com/path-to-image.jpg"
+    }
+    ]
+}

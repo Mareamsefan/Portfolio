@@ -20,30 +20,31 @@
     <main>
       <section id="form-section">
         <form action="#" id="project-form">
-            <label for="input">Project Name:</label>
-            <input type="text" id="input">
+          <label for="projectName">Project Name:</label>
+          <input type="text" id="projectName" class="input" placeholder="Enter the project name...">
+          
+          <label for="roleAndResponsibilites">Role and responsibilities:</label>
+          <textarea id="roleAndResponsibilites" class="input" name="roleAndResponsibilites" rows="4" cols="50" placeholder="Describe your role and responsibilities..."></textarea>
+          
+          <label for="projectDescription">Project description:</label>
+          <textarea id="projectDescription" class="input" name="description" rows="4" cols="50" placeholder="Enter your project description here..."></textarea>
+          
+          <label for="languagesUsed">Languages used:</label>
+          <textarea id="languagesUsed" class="input" name="languagesUsed" rows="2" cols="50" placeholder="List the languages used in the project..."></textarea>
+          
+          <label for="frameworksUsed">Frameworks used:</label>
+          <textarea id="frameworksUsed" class="input" name="frameworksUsed" rows="2" cols="50" placeholder="List the frameworks used in the project..."></textarea>
+          
+          <label for="startDate">Start date:</label>
+          <input type="date" id="startDate" class="input" placeholder="Select the start date...">
+        
+          <label for="githubRepository">Github repository:</label>
+          <input type="text" id="githubRepository" class="input" placeholder="Enter the GitHub repository URL...">
 
-            <label for="input">Role and responsibilites:</label>
-            <input type="text" id="input">
+          <label for="projectPictureURL">Project picture:</label>
+          <input type="text" id="projectPictureURL" class="input" placeholder="Enter the picture URL...">
 
-            <label for="input">Project description:</label>
-            <input type="text" id="input">
-
-            <label for="input">Github repository</label>
-            <input type="text" id="input">
-
-            <label for="input">Languages used:</label>
-            <input type="text" id="input">
-
-            <label for="input">Frameworks used:</label>
-            <input type="text" id="input">
-
-            <label for="input">Start date:</label>
-            <input type="text" id="input">
-
-            <button onclick="">Upload a picture</button>
-
-            <button type="submit">Register</button>
+            <button type="submit" onclick="">Register</button>
         </form>
       </section>
     </main>
@@ -52,6 +53,6 @@
       <a href="#">LinkedIn</a>
       <a href="#">GitHub</a>
     </footer>
-    <script type="module" src="/main.ts" defer></script>
+    <script type="module" src="main.ts" defer></script>
   </body>
 </html>
