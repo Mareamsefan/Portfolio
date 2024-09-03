@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="#" />
+    <link rel="icon" type="image/svg+xml" href="https://itstud.hiof.no/~mareamns/M.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>My Journey</title>
@@ -15,28 +15,47 @@
         <a href="index.html">Home</a>
         <a href="#">About me</a>
         <a href="#">Contact</a>
-        <a href="addProject.html">Add a Project +</a>
       </nav>
       <section id="bio-container">
-        <img src="https://dummyimage.com/100x100/ffffff/000000.jpg" alt="profile-picture">
+        <img id="pf-img" src="https://itstud.hiof.no/~mareamns/pf-removebg-preview.png" alt="profile-picture">
         <h1>Maream Sefan</h1>
-        <p>bio...</p>
+        <p>I’m a 20-year-old full-stack developer currently pursuing a degree in Computer Science at Østfold University College, 
+          with a strong focus on cybersecurity, backend programming, and machine learning. Outside of my technical interests, 
+          I enjoy oil painting, reading, and running.</p>
       </section>
     </header>
     <main>
       <section id="projects-container">
-        <article class="project">
-          <img src="https://dummyimage.com/300x300/ffffff/000000" alt="project 1 Img">
-          <a href="#">title of project</a>
-        </article>
-        <article class="project">
-          <img src="https://dummyimage.com/300x300/ffffff/000000" alt="project 1 Img">
-          <a href="#">title of project</a>
-        </article>
-        <article class="project">
-          <img src="https://dummyimage.com/300x300/ffffff/000000" alt="project 1 Img">
-          <a href="#">title of project</a>
-        </article>
+      
+      </section>
+      <section id="form-section">
+        <h3>Register a project</h3>
+        <form id="projectForm">
+          <label for="name">Project Name:</label>
+          <input type="text" id="name" class="input" placeholder="Enter the project name...">
+          
+          <label for="roleAndResponsibilites">Role and responsibilities:</label>
+          <textarea id="roleAndResponsibilites" class="input" name="roleAndResponsibilites" rows="4" cols="50" placeholder="Describe your role and responsibilities..."></textarea>
+          
+          <label for="description">Project description:</label>
+          <textarea id="description" class="input" name="description" rows="4" cols="50" placeholder="Enter your project description here..."></textarea>
+          
+          <label for="languagesUsed">Languages used:</label>
+          <textarea id="languagesUsed" class="input" name="languagesUsed" rows="2" cols="50" placeholder="List the languages used in the project..."></textarea>
+          
+          <label for="frameworksUsed">Frameworks used:</label>
+          <textarea id="frameworksUsed" class="input" name="frameworksUsed" rows="2" cols="50" placeholder="List the frameworks used in the project..."></textarea>
+          
+          <label for="startDate">Start date:</label>
+          <input type="date" id="startDate" class="input" placeholder="Select the start date...">
+        
+          <label for="githubRepository">Github repository:</label>
+          <input type="text" id="githubRepository" class="input" placeholder="Enter the GitHub repository URL...">
+
+          <label for="projectPictureURL">Project picture:</label>
+          <input type="text" id="projectPictureURL" class="input" placeholder="Enter the picture URL...">
+          <button type="submit">Register</button>
+        </form>
       </section>
     </main>
     <footer>
@@ -44,6 +63,6 @@
       <a href="https://www.linkedin.com/in/maream-s-a25874255" target="_blank">LinkedIn</a>
       <a href="https://github.com/Mareamsefan" target="_blank">GitHub</a>
     </footer>
-    <script type="module" src="/main.ts" defer></script>
+    <script type="module" src="main.ts" defer></script>
   </body>
 </html>
