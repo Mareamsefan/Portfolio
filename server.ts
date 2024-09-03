@@ -3,7 +3,7 @@ import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { serveStatic } from "@hono/node-server/serve-static";
 import fs from "node:fs/promises";
-import { ProjectSchema, type Project } from "./types";
+import {ProjectSchema, type Project } from "./types";
 
 
 const app = new Hono();
@@ -51,14 +51,16 @@ const projects: Project[] = [
 }
 ];
 
+
+// Returnerer innholdet fra projects.json-filen som JSON-data når en GET-forespørsel sendes til /json
 app.get("/json", async (c) => {
   const data = await fs.readFile("./statics/projects.json", "utf-8");
   const dataAsJson = JSON.parse(data);
   return c.json(dataAsJson);
 });
 
+// Mottar et nytt prosjekt via en POST-forespørsel til /add, validerer det med Zod og legger det til i projects-arrayet: 
 app.post("/add", async (c) => {
-  console.log("Enter")
   const newProject = await c.req.json();
   const project = ProjectSchema.parse(newProject);
 
@@ -70,6 +72,7 @@ app.post("/add", async (c) => {
   return c.json<Project[]>(projects, { status: 201 });
 });
 
+// henter alle projekter fra /json og lagrer dem i prosjekt lsiten: 
 app.get("/", (c) => {
   return c.json<Project[]>(projects); 
 
@@ -78,7 +81,6 @@ app.get("/", (c) => {
 const port = 3999;
 
 console.log(`Server is running on port ${port}`);
-
 
 serve({
   fetch: app.fetch,

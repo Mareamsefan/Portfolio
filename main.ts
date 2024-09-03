@@ -15,7 +15,6 @@ document.addEventListener('DOMContentLoaded', () => {
   form.addEventListener('submit', async (event: SubmitEvent) => {
     event.preventDefault();
 
-    console.log("addEvent ")
     const newProject = {
         id: crypto.randomUUID(),  
         name: ( (event.target as HTMLFormElement).elements.namedItem("name") as HTMLInputElement)?.value, 
@@ -29,7 +28,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }; 
 
     console.log(newProject)
-
     projects.push(newProject);
     updateProjectList();
 
@@ -41,21 +39,26 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         body: JSON.stringify(newProject),
       });
-
+    
       if (response.status === 201) {
+        alert('Project was successfully saved on the server');
         console.log('Project saved on server');
       } else {
+        alert('Error occurred while saving the project on the server');
         console.error('Error while saving the project on server');
       }
     } catch (error) {
+      alert('An error occurred while sending data to the server');
       console.error('Error while sending data to server:', error);
     }
-  });
-
+    
+  })
+  
   function updateProjectList() {
     const projectsContainer = document.getElementById("projects-container");
     if (!projectsContainer) return;
-    
+   //tømmer container for å unngå duplikater av "gamle" prosjekter
+    projectsContainer.innerHTML = ``
     for (const project of projects) {
       const article = document.createElement('article');
       article.classList.add('project');
@@ -71,42 +74,40 @@ document.addEventListener('DOMContentLoaded', () => {
       link.target = "_blank";
       article.appendChild(link);
 
-      // Legger til `article`-elementet i `projects-container`
+      // Legger til article-elementet i projects-container
       projectsContainer.appendChild(article);
     }
   }
 
   function loadFromApi() {
-    console.log("Denne kjører")
-    fetch('http://localhost:3999')
+    fetch('http://localhost:3999/')
       .then((response) => response.json())
-      .then((data: unknown) => {
+      .then((data: Project) => {
         try {
           const validatedProjects = ProjectArraySchema.parse(data);
           projects.push(...validatedProjects);
           updateProjectList();
         } catch (error) {
           if (error instanceof z.ZodError) {
-            console.error('Ugyldig data mottatt fra serveren:', error.errors);
+            console.error('Invalid data received from server:', error.errors);
           } else {
-            console.error('Uventet feil ved validering av data:', error);
+            console.error('Unexpected error while validating data:', error);
           }
         }
       })
       .catch((error: Error) => {
-        console.error('Feil ved henting av data fra servern:', error);
+        console.error('Error while fetching data from server:', error);
       });
   }
 
-  /*
+
+  
   function loadFromJSON() {
     fetch("statics/projects.json")
     .then((response) => response.json())
     .then((data) => {
         const projectsContainer = document.getElementById("projects-container");
         if (!projectsContainer) return;
-
-        console.log("Du får data ut!!!");
 
         for (const project of data) {
             const article = document.createElement('article');
@@ -120,10 +121,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const link = document.createElement('a');
             link.href = project.githubRepository;
             link.textContent = project.name;
+            //sik at den ikke åpner ny fane/vindu
             link.target = "_blank";
             article.appendChild(link);
 
-            // Legger til `article`-elementet i `projects-container`
+            // Legger til article -elementet i projects-container
             projectsContainer.appendChild(article);
         }
     })
@@ -132,7 +134,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   
   }
-
-  loadFromJSON();*/
+  //loadFromJSON();
   loadFromApi();
+
+ 
 });
