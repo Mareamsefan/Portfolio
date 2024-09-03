@@ -25,9 +25,37 @@
     </header>
     <main>
       <section id="projects-container">
-
+      
       </section>
-      <pre id="json"></pre>
+      <!--<pre id="json"></pre>-->
+      <section id="form-section">
+        <form id="projectForm">
+          <label for="name">Project Name:</label>
+          <input type="text" id="name" class="input" placeholder="Enter the project name...">
+          
+          <label for="roleAndResponsibilites">Role and responsibilities:</label>
+          <textarea id="roleAndResponsibilites" class="input" name="roleAndResponsibilites" rows="4" cols="50" placeholder="Describe your role and responsibilities..."></textarea>
+          
+          <label for="description">Project description:</label>
+          <textarea id="description" class="input" name="description" rows="4" cols="50" placeholder="Enter your project description here..."></textarea>
+          
+          <label for="languagesUsed">Languages used:</label>
+          <textarea id="languagesUsed" class="input" name="languagesUsed" rows="2" cols="50" placeholder="List the languages used in the project..."></textarea>
+          
+          <label for="frameworksUsed">Frameworks used:</label>
+          <textarea id="frameworksUsed" class="input" name="frameworksUsed" rows="2" cols="50" placeholder="List the frameworks used in the project..."></textarea>
+          
+          <label for="startDate">Start date:</label>
+          <input type="date" id="startDate" class="input" placeholder="Select the start date...">
+        
+          <label for="githubRepository">Github repository:</label>
+          <input type="text" id="githubRepository" class="input" placeholder="Enter the GitHub repository URL...">
+
+          <label for="projectPictureURL">Project picture:</label>
+          <input type="text" id="projectPictureURL" class="input" placeholder="Enter the picture URL...">
+          <button type="submit">Register</button>
+        </form>
+      </section>
     </main>
     <footer>
       <p>Copyright Maream Sefan - My Journey</p>

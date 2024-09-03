@@ -1,14 +1,12 @@
-import { UUID } from "crypto";
-
 import {z} from "zod"; 
 
 
 // Definerer et Zod-skjema for Project: 
 export const ProjectSchema = z.object ({
     id: z.string(),
-    projectName: z.string(), 
+    name: z.string(), 
     roleAndResponsibilities: z.string(), 
-    projectDescription: z.string(),
+    description: z.string(),
     languagesUsed: z.array(z.string()), 
     frameworksUsed: z.array(z.string()), 
     startDate: z.coerce.date(), 
@@ -29,15 +27,3 @@ export type Project = z.infer<typeof ProjectSchema>;
 // Oppdatert type-definisjon basert på Zod-skjemaet: 
 export type CreateProject = z.infer<typeof ProjectCreateSchema>; 
 
-type ProjectObject = {
-    id: UUID; 
-    projectName: string; 
-    roleAndResponibilities: string; 
-    projectDescription: string; 
-    githubRepository: string; 
-    languagesUsed: string[]; 
-    frameworkUsed: string[]; 
-    startDate: Date | string; 
-    pictureURL: string; 
-
-}; 
