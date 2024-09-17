@@ -101,6 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 
+  // her kunne jeg bruke /json- ruten i fetch, men lagde dette før jeg satte opp honoserver. 
   
   function loadFromJSON() {
     fetch("statics/projects.json")
