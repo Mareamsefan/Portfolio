@@ -106,8 +106,8 @@ section#bio-container {
     font-weight: bold;
   }
 
-
-  #projects-container {
+ 
+  section#projects-container {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap; 

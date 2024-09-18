@@ -3,7 +3,7 @@ import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { serveStatic } from "@hono/node-server/serve-static";
 import fs from "node:fs/promises";
-import {ProjectSchema, type Project } from "./types";
+import {ProjectSchema, type Project } from "../types";
 
 
 const app = new Hono();
