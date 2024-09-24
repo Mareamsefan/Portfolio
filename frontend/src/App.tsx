@@ -1,9 +1,9 @@
-import { Project } from '../../../backend/src/types';
+import { Project } from '../../backend/src/types';
 //import './../App.css'
-import ProjectContainer from "./ProjectContainer"
-import Header from "./Header"
-import Footer from "./Footer"
-import ProjectForm from './ProjectForm';
+import ProjectContainer from "./components/ProjectContainer"
+import Header from "./components/Header"
+import Footer from "./components/Footer"
+import ProjectForm from './components/ProjectForm';
 
 function App() {
 
