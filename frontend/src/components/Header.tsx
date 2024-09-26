@@ -1,28 +1,17 @@
+import Experiences from "./Experiences";
+import Student from "./Student";
+import { Student as StudentProps } from "./types";
 
-const Header = () => {
+export default function Header ({student}: {student: StudentProps}) {
+
+    const {name, degree, points, pictureURL} = student
     return (
-        <>
         <header>
-            <nav>
-                <a href="index.html">Home</a>
-                <a href="#">About me</a>
-                <a href="#">Contact</a>
-            </nav>
             <section id="bio-container">
-            <img 
-            id="pf-img" 
-            src="https://itstud.hiof.no/~mareamns/pf-removebg-preview.png"
-            alt="profile-picture" 
-            />
-            <h1>Maream Sefan</h1>
-            <p>
-             I’m a 20-year-old full-stack developer currently pursuing a degree in Computer Science at 
-             Østfold University College, with a strong focus on cybersecurity, backend programming, 
-             and machine learning. Outside of my technical interests, I enjoy oil painting, reading, and running.
-            </p>
-            </section>
+           <Student name={name} degree={degree} points={points}  pictureURL={pictureURL} />
+           <Experiences experiences={student.experiences} />
+           </section>
         </header>
-        </>
+        
     ); 
 }; 
-export default Header; 

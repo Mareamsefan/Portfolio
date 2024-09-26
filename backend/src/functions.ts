@@ -1,6 +1,6 @@
 import './statics/style.css';
 import { z } from 'zod';
-import { ProjectArraySchema, type Project } from './types';
+import { ProjectArraySchema, type Project } from '../../frontend/src/components/types';
 
 document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('projectForm') as HTMLFormElement;

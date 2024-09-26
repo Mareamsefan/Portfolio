@@ -1,11 +1,20 @@
-import { Project } from '../../backend/src/types';
+import { Project, Student } from './components/types';
 //import './../App.css'
 import ProjectContainer from "./components/ProjectContainer"
 import Header from "./components/Header"
 import Footer from "./components/Footer"
 import ProjectForm from './components/ProjectForm';
+import Contact from './components/Contact';
+import Nav from './components/Nav';
+import { useState } from 'react';
+import About from './components/About';
 
 function App() {
+  const [activePage, setActivePage] = useState('home');
+
+  const handleNavClick = (page:string) => {
+    setActivePage(page);
+  };
 
   const projects: Project[] = [
     {
@@ -43,14 +52,37 @@ function App() {
       frameworksUsed: ["Flask", "SQLAlchemy"],
       startDate:  new Date("2024-05-01"),
       pictureURL: "https://itstud.hiof.no/~mareamns/YourGuide-MVP.png"
-  }
-  ];
+  }];
+
+  const student: Student = {
+    name: "Maream Sefan",
+    degree: "Bachelor in informatics",
+    points: 120,
+    email: "mareamns@hiof.no",
+    pictureURL: "https://itstud.hiof.no/~mareamns/pf-removebg-preview.png", 
+    experiences: [
+		  { name: "Figma UI for customer X" },
+		  { name: "Website for customer Y" }
+	  ],
+   
+  }; 
+
+
   return (
    <>
-   <Header/>
+   <Nav onNavClick={handleNavClick}/>
    <main>
-    <ProjectContainer projects={projects}/>
-    <ProjectForm/>
+    {activePage === 'home' && (
+      <>
+      <Header student={student}/>
+      <ProjectContainer projects={projects}/>
+      <ProjectForm/>
+      </>
+    )}
+    {activePage === 'about' && <About />}
+    {activePage === 'contact' && <Contact student={student} /> }
+    
+   
     </main>
    <Footer />
    

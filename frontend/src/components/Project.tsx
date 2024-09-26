@@ -1,6 +1,7 @@
-import {ProjectSchema, type Project } from "../../../backend/src/types";
+import {ProjectSchema, Project as ProjectPorps } from "./types";
 
- const Project = (project: Project) => {
+ 
+export default function Project(project: ProjectPorps) {
     const {name, 
         roleAndResponsibilities, 
         description,languagesUsed, 
@@ -17,4 +18,3 @@ import {ProjectSchema, type Project } from "../../../backend/src/types";
         </article>
     ); 
 }
-export default Project; 

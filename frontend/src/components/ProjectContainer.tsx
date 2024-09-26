@@ -1,9 +1,10 @@
 import Project from "./Project"
+import {Project as ProjectProps} from "./types"
 
 
 
-const ProjectContainer = ({projects}: {projects:Project[]}) => {
-
+export default function ProjectContainer ({projects}: {projects:ProjectProps[]}) {
+   
     return (
         <section id="projects-container">
             {projects.map((project, index) => (
@@ -13,5 +14,3 @@ const ProjectContainer = ({projects}: {projects:Project[]}) => {
         </section>
     )
 }
-
-export default ProjectContainer

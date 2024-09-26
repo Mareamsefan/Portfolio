@@ -1,5 +1,5 @@
 
-const ProjectForm = () => {
+export default function ProjectForm(){
     return (
         <section id="form-section">
       <h3>Register a project</h3>
@@ -80,4 +80,3 @@ const ProjectForm = () => {
     ); 
 };
 
-export default ProjectForm; 

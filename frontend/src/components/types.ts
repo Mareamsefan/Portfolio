@@ -15,7 +15,6 @@ export const ProjectSchema = z.object ({
 })
 
 //Definerer et Zod-skjema for å opprette et nytt Project: 
-
 export const ProjectCreateSchema = ProjectSchema.omit({id: true}); 
 
 //Definerer et Zod-skjema for en array av projects: 
@@ -27,3 +26,16 @@ export type Project = z.infer<typeof ProjectSchema>;
 // Oppdatert type-definisjon basert på Zod-skjemaet: 
 export type CreateProject = z.infer<typeof ProjectCreateSchema>; 
 
+export type Student = {
+    name: string, 
+    degree: string, 
+    points: number,
+    email?: string,
+    pictureURL?: string, 
+    experiences?:  Experience[]
+   
+
+}
+export type Experience = {
+    name: string
+}
