@@ -1,6 +1,6 @@
 
 export default function About() {
     return (
-        <h1>about...</h1>
+        <h2>not fully developed yet :(..</h2>
     )
 }

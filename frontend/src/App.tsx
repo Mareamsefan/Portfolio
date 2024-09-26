@@ -3,7 +3,7 @@ import { Project, Student } from './components/types';
 import ProjectContainer from "./components/ProjectContainer"
 import Header from "./components/Header"
 import Footer from "./components/Footer"
-import ProjectForm from './components/ProjectForm';
+import ProjectForm from './components/CreateProjectForm';
 import Contact from './components/Contact';
 import Nav from './components/Nav';
 import { useState } from 'react';
@@ -16,6 +16,7 @@ function App() {
     setActivePage(page);
   };
 
+  const empty: Project[] = []
   const projects: Project[] = [
     {
       id: crypto.randomUUID(),
@@ -54,6 +55,17 @@ function App() {
       pictureURL: "https://itstud.hiof.no/~mareamns/YourGuide-MVP.png"
   }];
 
+  const studentWithNoExperience: Student = {
+    name: "Maream Sefan",
+    degree: "Bachelor in informatics",
+    points: 120,
+    email: "mareamns@hiof.no",
+    pictureURL: "https://itstud.hiof.no/~mareamns/pf-removebg-preview.png", 
+    experiences: [
+	  ],
+   
+  }; 
+
   const student: Student = {
     name: "Maream Sefan",
     degree: "Bachelor in informatics",
@@ -61,12 +73,12 @@ function App() {
     email: "mareamns@hiof.no",
     pictureURL: "https://itstud.hiof.no/~mareamns/pf-removebg-preview.png", 
     experiences: [
-		  { name: "Figma UI for customer X" },
+      { name: "Figma UI for customer X" },
 		  { name: "Website for customer Y" }
+  
 	  ],
    
   }; 
-
 
   return (
    <>
@@ -75,8 +87,7 @@ function App() {
     {activePage === 'home' && (
       <>
       <Header student={student}/>
-      <ProjectContainer projects={projects}/>
-      <ProjectForm/>
+      <ProjectContainer projectList={projects} />
       </>
     )}
     {activePage === 'about' && <About />}
