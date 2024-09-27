@@ -3,6 +3,7 @@ import { Hono } from 'hono'
 import { cors } from 'hono/cors';
 import fs from "node:fs/promises";
 import {ProjectSchema, type Project } from "../../frontend/src/components/types";
+import { error } from 'node:console';
 
 const app = new Hono()
 
@@ -49,9 +50,23 @@ const projects: Project[] = [
 
 
 app.get('/projects', async(c) => {
-  const data = await fs.readFile("./data/projects.json", "utf-8")
-  const dataAsJson = JSON.parse(data);  
-  return c.json(dataAsJson)
+  return c.json(projects)
 })
+
+app.post('/add', async(c) => {
+    try {
+        const newProject = await c.req.json(); 
+
+        const project = ProjectSchema.parse({ id: crypto.randomUUID(), ...newProject });
+
+        projects.push(project); 
+
+        return c.json({ message: "New project added successfully" }, { status: 200 });
+    } catch(error) {
+        console.error("Failed to add project", error); // Log feilen for feilsøking
+        return c.json({ error: "Failed to add project" }, { status: 500 });
+    }
+});
+
 
 export default app; 

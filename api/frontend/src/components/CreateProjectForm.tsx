@@ -20,44 +20,55 @@ export default function CreateProjectForm(props: AddProjectFormProps){
   const [pictureURL, setPictureURL] = useState('');
   
 
-  const handelSubmit = (e: React.FormEvent) => {
+  const handelSubmit = async (e: React.FormEvent) => {
     e.preventDefault(); 
   
 
-    const newProject = {
+    const newProject: CreateProject = {
         name, 
         role, 
         description, 
-        languages, 
-        frameworks, 
-        startDate, 
+        languages: [], 
+        frameworks: [], 
+        startDate: new Date, 
         githubRep, 
         pictureURL
     }
 
-    //validering med zod-skjema jeg allerede har fra forrige innlevering: 
-    const result = ProjectCreateSchema.safeParse(newProject); 
-    if (!result.success) {
-      alert('please fill in the right data')
-    }; 
-    console.log(newProject); 
-    onAddProject(newProject)
+    try {
+      const response = await fetch("http://localhost:3000/add", {
+        method: "POST", 
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newProject),
+      }); 
+    
+    if (response.ok){
+      const result = await response.json(); 
+      console.log("New project added sucessfully", newProject); 
+      onAddProject(newProject)
 
-    //reseter staten
-      setName(''); 
-      setRole(''); 
-      setDescription(''); 
-      setLanguages(''); 
-      setFrameworks(''); 
-      setGithubRep(''); 
-      setPictureURL(''); 
-
-    } 
-
+      //reseter staten
+        setName(''); 
+        setRole(''); 
+        setDescription(''); 
+        setLanguages(''); 
+        setFrameworks(''); 
+        setGithubRep(''); 
+        setPictureURL(''); 
+      } else {
+        console.error("error:", response.status)
+      }
+    }catch (error) {
+      console.error("Error submitting the project:", error);
+    }
+  }
+  
     return (
       <section id="form-section">
         <h3>Register a project</h3>
-        <form id="projectForm" onSubmit={handelSubmit}>
+        <form id="projectForm" onSubmit={handelSubmit} method="post">
           <label htmlFor="name">Project Name:</label>
           <input
             type="text"
