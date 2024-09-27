@@ -1,18 +1,15 @@
-import { useState } from "react"
 import Project from "./Project"
-import {Project as ProjectProps} from "./types"
+import {CreateProject, Project as ProjectProps, Student} from "./types"
 import CreateProjectForm from "./CreateProjectForm";
 
 type ProjectContainerProps = {
     projectList: ProjectProps[]; 
+    onAddProject: (project: any) => void; 
+    //onRemoveProject?: (id:string) => void; 
 }
 
 export default function ProjectContainer (props: ProjectContainerProps) {
-   const [projectList, setProjectList] = useState<ProjectProps[]>(props.projectList ?? []); 
-
-   const onAddProject = (project:ProjectProps) => {
-    setProjectList((prev) => [...prev, {...project}])
-    }; 
+   const {projectList, onAddProject} = props;
 
     return (
         <><section id="projects-container">

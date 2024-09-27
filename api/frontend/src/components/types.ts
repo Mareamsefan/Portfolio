@@ -5,12 +5,12 @@ import {z} from "zod";
 export const ProjectSchema = z.object ({
     id: z.string(),
     name: z.string(), 
-    roleAndResponsibilities: z.string(), 
+    role: z.string(), 
     description: z.string(),
-    languagesUsed: z.array(z.string()), 
-    frameworksUsed: z.array(z.string()), 
+    languages: z.array(z.string()), 
+    frameworks: z.array(z.string()), 
     startDate: z.coerce.date(), 
-    githubRepository: z.string(), 
+    githubRep: z.string(), 
     pictureURL: z.string()
 })
 
