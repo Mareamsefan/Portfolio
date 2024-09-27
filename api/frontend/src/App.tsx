@@ -1,5 +1,4 @@
 import { CreateProject, Project, Student } from './components/types';
-//import './../App.css'
 import ProjectContainer from "./components/ProjectContainer"
 import Header from "./components/Header"
 import Footer from "./components/Footer"
@@ -7,8 +6,18 @@ import Contact from './components/Contact';
 import Nav from './components/Nav';
 import { useState } from 'react';
 import About from './components/About';
+import { ofetch } from 'ofetch';
 
 function App() {
+
+  const data = ofetch("<http://localhost:3000/projects>", {
+    onResponse({ request, response }) {
+      console.log("[fetch response]", request, response.status, response.body);
+    },
+  }).then((res) => {
+    console.log("data fetched", res);
+  });
+  
   const [activePage, setActivePage] = useState('home');
 
   const handleNavClick = (page:string) => {
