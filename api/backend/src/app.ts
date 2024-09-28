@@ -63,10 +63,40 @@ app.post('/add', async(c) => {
 
         return c.json({ message: "New project added successfully" }, { status: 200 });
     } catch(error) {
-        console.error("Failed to add project", error); // Log feilen for feilsøking
+        console.error("Failed to add project", error); 
         return c.json({ error: "Failed to add project" }, { status: 500 });
     }
 });
+
+app.delete('/project', async (c) => {
+  try {
+      const projectToRemove = await c.req.json(); // Mottar hele prosjektet
+
+      // Hvis prosjektet mangler
+      if (!projectToRemove || !projectToRemove.id) {
+          return c.json({ error: "Invalid project data" }, 400);
+      }
+
+      // Finn prosjektet som skal fjernes
+      const projectIndex = projects.findIndex(
+        (project) => project.id.toLowerCase() === projectToRemove.id.toLowerCase()
+      );
+
+      // Hvis prosjektet ikke finnes
+      if (projectIndex === -1) {
+          return c.json({ error: "Project not found" }, 404);
+      }
+
+      // Fjern prosjektet fra listen
+      projects.splice(projectIndex, 1);
+
+      return c.json({ message: "Project removed successfully" }, 200);
+  } catch (error) {
+      console.error("Failed to remove project", error);
+      return c.json({ error: "Failed to remove project" }, 500);
+  }
+});
+
 
 
 export default app; 

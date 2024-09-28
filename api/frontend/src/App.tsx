@@ -23,6 +23,7 @@ function App() {
   const onRemoveProject = (id:string) => {
     setProjectList((prev) => prev.filter((student)=> student.id !== id)); 
   }
+
   useEffect(() => {
     const loadProjects = async () => {
       try {
@@ -81,7 +82,7 @@ function App() {
     {activePage === 'home' && (
       <>
       <Header student={student}/>
-      <ProjectContainer projectList={projectList} onAddProject={onAddProject} />
+      <ProjectContainer projectList={projectList} onAddProject={onAddProject}  onRemoveProject={onRemoveProject}/>
       </>
     )}
     {activePage === 'about' && <About />}

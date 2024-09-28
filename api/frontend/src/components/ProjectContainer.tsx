@@ -5,11 +5,11 @@ import CreateProjectForm from "./CreateProjectForm";
 type ProjectContainerProps = {
     projectList: ProjectProps[]; 
     onAddProject: (project: any) => void; 
-    //onRemoveProject?: (id:string) => void; 
+    onRemoveProject: (id:string) => void; 
 }
 
 export default function ProjectContainer (props: ProjectContainerProps) {
-   const {projectList, onAddProject} = props;
+   const {projectList, onAddProject, onRemoveProject} = props;
 
     return (
         <><section id="projects-container">
@@ -18,7 +18,7 @@ export default function ProjectContainer (props: ProjectContainerProps) {
                 <p>you have no projects yet..</p>
             ) : (
                 projectList.map((project, index) => (
-                    <Project key={index} {...project} />
+                    <Project onRemoveProject={onRemoveProject} key={index} {...project} />
                 ))
             )}
         </section><>
