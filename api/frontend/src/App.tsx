@@ -1,9 +1,9 @@
 import { CreateProject, Project, ProjectArraySchema, Student } from './components/types';
-import ProjectContainer from "./components/ProjectContainer"
-import Header from "./components/Header"
-import Footer from "./components/Footer"
+import ProjectContainer from "./components/project/ProjectContainer"
+import Header from "./components/main/Header"
+import Footer from "./components/main/Footer"
 import Contact from './components/Contact';
-import Nav from './components/Nav';
+import Nav from './components/main/Nav';
 import { useEffect, useState } from 'react';
 import About from './components/About';
 import { ofetch } from 'ofetch';
