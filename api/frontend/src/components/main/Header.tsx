@@ -1,6 +1,6 @@
-import Experiences from "./Experiences";
-import Student from "./Student";
-import { Student as StudentProps } from "./types";
+import Experiences from "../student/Experiences";
+import Student from "../student/Student";
+import { Student as StudentProps } from "../types";
 
 export default function Header ({student}: {student: StudentProps}) {
 

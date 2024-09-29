@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { CreateProject, ProjectCreateSchema } from "./types";
+import { CreateProject, ProjectCreateSchema } from "../types";
 import { ofetch } from "ofetch";
 
 type AddProjectFormProps = {
