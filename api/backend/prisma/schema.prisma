@@ -1,0 +1,74 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Project {
+  id          String       @id @default(cuid()) // Automatically generates a unique ID
+  name        String
+  description String
+  startDate   DateTime
+  endDate     DateTime?
+  publishedAt DateTime?
+  status      String
+  githubRep   String
+  studentId   String?
+  student     Student?     @relation(fields: [studentId], references: [id])
+
+  // Relasjoner til separate tabeller
+  tags        ProjectTag[]
+  languages   ProjectLanguage[]
+  frameworks  ProjectFramework[]
+  pictureURLs ProjectPictureURL[]
+ 
+}
+
+model ProjectTag {
+  id         String   @id @default(cuid())
+  name       String 
+  projectId  String
+  project    Project @relation(fields: [projectId], references: [id]) 
+
+}
+model ProjectLanguage {
+  id        String   @id @default(cuid())
+  name      String
+  projectId String
+  project   Project @relation(fields: [projectId], references: [id])
+}
+
+model ProjectFramework {
+  id        String   @id @default(cuid())
+  name      String
+  projectId String
+  project   Project @relation(fields: [projectId], references: [id])
+}
+
+model ProjectPictureURL {
+  id        String   @id @default(cuid())
+  url       String
+  projectId String
+  project   Project @relation(fields: [projectId], references: [id])
+}
+
+model Student {
+  id          String       @id @default(cuid()) // Automatically generates a unique ID
+  name        String
+  degree      String
+  points      Int
+  email       String?      // Optional email field
+  pictureURL  String?      // Optional picture URL field
+  experiences Experience[] @relation("StudentExperience") // Experience relationship
+  projects    Project[]   // A student can have many projects
+}
+
+model Experience {
+  id         String   @id @default(cuid()) // Automatically generates a unique ID
+  name       String
+  studentId  String
+  student    Student  @relation("StudentExperience", fields: [studentId], references: [id])
+}

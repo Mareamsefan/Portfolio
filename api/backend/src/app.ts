@@ -4,6 +4,7 @@ import { cors } from 'hono/cors';
 import fs from "node:fs/promises";
 import {ProjectSchema, type Project } from "../../frontend/src/components/types";
 import { error } from 'node:console';
+import { getProjectsController } from './features/projects/controller';
 
 const app = new Hono()
 
@@ -48,17 +49,18 @@ const projects: Project[] = [
 }
 ];
 
+//TODO: MÅ ENDRE ALLE STEDER DER GET ER BARE /PROJECT TIL "/V1/PROJECTS"
 
-app.get('/projects', async(c) => {
-  return c.json(projects)
-})
+app.get('/v1/projects', getProjectsController)
 
-app.post('/add', async(c) => {
+//TODO: MÅ ENDRE ALLE STEDER DER POST ER BARE /ADD TIL "/V1/PROJECTS"
+
+app.post('/v1/projects', async(c) => {
     try {
         const newProject = await c.req.json(); 
 
         const project = ProjectSchema.parse({ id: crypto.randomUUID(), ...newProject });
-
+        
         projects.push(project); 
 
         return c.json({ message: "New project added successfully" }, { status: 200 });
@@ -67,6 +69,8 @@ app.post('/add', async(c) => {
         return c.json({ error: "Failed to add project" }, { status: 500 });
     }
 });
+
+//TODO: MÅ ENDRE ALLE STEDER DER POST ER BARE /project TIL "/V1/PROJECTS/:id"
 
 app.delete('/project', async (c) => {
   try {

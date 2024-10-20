@@ -19,8 +19,8 @@ export default function ProjectContainer (props: ProjectContainerProps) {
                 {projectList.length === 0 ? (
                     <p>you have no projects yet..</p>
                 ) : (
-                    projectList.map((project, index) => (
-                        <Project onRemoveProject={onRemoveProject} key={index} {...project} />
+                    projectList.map((project) => (
+                        <Project onRemoveProject={onRemoveProject} key={project.id} {...project} />
                     ))
                 )}
             </section>
