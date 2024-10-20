@@ -7,8 +7,9 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+
 model Project {
-  id          String       @id @default(cuid()) // Automatically generates a unique ID
+  id          String       @id @default(cuid()) 
   name        String
   description String
   startDate   DateTime
@@ -56,18 +57,18 @@ model ProjectPictureURL {
 }
 
 model Student {
-  id          String       @id @default(cuid()) // Automatically generates a unique ID
+  id          String       @id @default(cuid()) 
   name        String
   degree      String
   points      Int
-  email       String?      // Optional email field
-  pictureURL  String?      // Optional picture URL field
-  experiences Experience[] @relation("StudentExperience") // Experience relationship
-  projects    Project[]   // A student can have many projects
+  email       String?      
+  pictureURL  String?     
+  experiences Experience[] @relation("StudentExperience") 
+  projects    Project[]   
 }
 
 model Experience {
-  id         String   @id @default(cuid()) // Automatically generates a unique ID
+  id         String   @id @default(cuid()) 
   name       String
   studentId  String
   student    Student  @relation("StudentExperience", fields: [studentId], references: [id])
