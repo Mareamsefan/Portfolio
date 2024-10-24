@@ -1,4 +1,4 @@
-import { Student, Experience } from "../features/projects/types";
+import { Student, Experience } from "../features/student/types";
 
 export const experiences: Experience[] = [
     { name: 'Fullstack development' },

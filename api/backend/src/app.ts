@@ -16,7 +16,7 @@ app.use("/*", cors());
 app.get('/v1/projects', getProjectsController)
 
 //TODO: MÅ ENDRE ALLE STEDER DER POST ER BARE /ADD TIL "/V1/PROJECTS"
-
+/*
 app.post('/v1/projects', async(c) => {
     try {
         const newProject = await c.req.json(); 
@@ -63,6 +63,6 @@ app.delete('/project', async (c) => {
   }
 });
 
-
+*/
 
 export default app; 
