@@ -13,6 +13,7 @@ app.use("/*", cors());
 
 //TODO: MÅ ENDRE ALLE STEDER DER GET ER BARE /PROJECT TIL "/V1/PROJECTS"
 
+//FIXME: --> slik henter du routes fra controller -> app.route("/v1/students", studentController);
 app.get('/v1/projects', getProjectsController)
 
 //TODO: MÅ ENDRE ALLE STEDER DER POST ER BARE /ADD TIL "/V1/PROJECTS"

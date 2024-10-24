@@ -1,5 +1,7 @@
 import type { Project, ProjectDB } from "@/features/projects/types";
 
+
+//TODO: oppdatter mapperen til å funke, ta inspo fra: demos/classlist/backend/src/features/students/student.mapper.ts
 export const mapProject = (project: ProjectDB) => {
     return {
       id: project.id,

@@ -2,6 +2,8 @@ import { Context } from 'hono';
 import type { Result } from'@lib/';
 import { getProjects } from '../service/indext'
 
+
+//TODO: controller skal bruke app.get/post osv, slik som det er vist her: https://github.com/mariuswallin/hiof-webapp-2024/blob/main/demos/classlist/backend/src/features/students/student.controller.ts
 // Controller for fetching projects in Hono
 export const getProjectsController = async (c: Context) => {
   try {
