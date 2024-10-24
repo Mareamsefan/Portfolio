@@ -1,11 +1,22 @@
-import prisma from '../../../client/db'
+import { Result } from '@/lib/Result';
+import prisma, { Prisma } from '@/client/db'
+import { Project} from '@/features/projects/types';
 
-export const getAllProjects = async () => {
-    return await prisma.project.findMany({
-      include: {
-        languages: true,
-        frameworks: true,
-        pictureURLs: true, 
-      },
-    });
+type ProjectRepository = {
+  list: (query?: Record<string, string>) => Promise<Result<Project>>; 
+  create: (data: Project) => Promise<Result<Project>>; 
 }
+
+export const createProjectRepository = (prisma: Prisma): ProjectRepository => {
+
+  const create = (data: Project) => {
+    try{
+      
+    }
+  }
+  return {
+    list() => {}, 
+    create
+  }
+}
+

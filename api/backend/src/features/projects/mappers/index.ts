@@ -1,6 +1,6 @@
-import type { Project } from "../../projects/types";
+import type { Project, ProjectDB } from "@/features/projects/types";
 
-export const mapProject = (project: Project) => {
+export const mapProject = (project: ProjectDB) => {
     return {
       id: project.id,
       name: project.name,

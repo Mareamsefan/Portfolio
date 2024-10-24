@@ -1,4 +1,4 @@
-import { CreateProject } from "../features/projects/types";
+import { CreateProject} from "@/features/projects/types";
 
 export const projects: CreateProject[] = [
   {
@@ -11,7 +11,7 @@ export const projects: CreateProject[] = [
     languages: ["HTML", "CSS", "JavaScript", "PHP", "Regex"],
     frameworks: ["No framework used"],
     pictureURLs: ["https://itstud.hiof.no/~mareamns/NotCanvas.png"],
-    tags: ["security", "feedback", "website"]
+    tags: ["security", "feedback", "website"],
   },
   {
     name: "Harbor Simulation Framework",
@@ -23,7 +23,7 @@ export const projects: CreateProject[] = [
     languages: ["C#", "XAML"],
     frameworks: [".NET Framework", "WPF"],
     pictureURLs: ["https://itstud.hiof.no/~mareamns/HarborSimulation.jfif"],
-    tags: ["simulation", "framework", "harbor"]
+    tags: ["simulation", "framework", "harbor"],
   },
   {
     name: "YourGuide MVP",
@@ -35,6 +35,6 @@ export const projects: CreateProject[] = [
     languages: ["Python", "HTML"],
     frameworks: ["Flask", "SQLAlchemy"],
     pictureURLs: ["https://itstud.hiof.no/~mareamns/YourGuide-MVP.png"],
-    tags: ["mvp", "tour", "database"]
+    tags: ["mvp", "tour", "database"],
   }
 ];

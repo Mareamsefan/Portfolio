@@ -1,12 +1,11 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
 generator client {
   provider = "prisma-client-js"
 }
-
-datasource db {
-  provider = "sqlite"
-  url      = env(DATABASE_URL)
-}
-
 
 model Project {
   id          String       @id @default(cuid()) 
@@ -17,59 +16,24 @@ model Project {
   publishedAt DateTime?
   status      String
   githubRep   String
-  studentId   String?
-  student     Student?     @relation(fields: [studentId], references: [id])
-
-  // Relasjoner til separate tabeller
-  tags        ProjectTag[]
-  languages   ProjectLanguage[]
-  frameworks  ProjectFramework[]
-  pictureURLs ProjectPictureURL[]
+  userId      String?
+  user        User? @relation(fields: [userId], references: [id])
+  tags        String
+  languages   String
+  frameworks  String
+  pictureURLs String
  
 }
 
-model ProjectTag {
-  id         String   @id @default(cuid())
-  name       String 
-  projectId  String
-  project    Project @relation(fields: [projectId], references: [id]) 
 
-}
-model ProjectLanguage {
-  id        String   @id @default(cuid())
-  name      String
-  projectId String
-  project   Project @relation(fields: [projectId], references: [id])
-}
-
-model ProjectFramework {
-  id        String   @id @default(cuid())
-  name      String
-  projectId String
-  project   Project @relation(fields: [projectId], references: [id])
-}
-
-model ProjectPictureURL {
-  id        String   @id @default(cuid())
-  url       String
-  projectId String
-  project   Project @relation(fields: [projectId], references: [id])
-}
-
-model Student {
+model User {
   id          String       @id @default(cuid()) 
   name        String
   degree      String
   points      Int
   email       String?      
   pictureURL  String?     
-  experiences Experience[] @relation("StudentExperience") 
-  projects    Project[]   
+  experiences String
+  projects    Project[]
 }
 
-model Experience {
-  id         String   @id @default(cuid()) 
-  name       String
-  studentId  String
-  student    Student  @relation("StudentExperience", fields: [studentId], references: [id])
-}

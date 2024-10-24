@@ -1,5 +1,5 @@
 import { Context } from 'hono';
-import type { Result } from '../types/index';
+import type { Result } from'@lib/';
 import { getProjects } from '../service/indext'
 
 // Controller for fetching projects in Hono

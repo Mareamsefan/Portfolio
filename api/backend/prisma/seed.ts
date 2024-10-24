@@ -1,53 +1,46 @@
-import { PrismaClient} from "@prisma/client";
+import { PrismaClient } from '@prisma/client';
 import { projects } from "../src/data/projects"; 
-import { student } from "../src/data/student"; 
+import { user } from "../src/data/user"; 
+import { ProjectDB } from '@/features/projects/types';
+import { UserDB } from '@/features/user/types';
 
 const prisma = new PrismaClient();
 
 async function seed() {
   try {
-    // Create student along with their experiences
-    const createdStudent = await prisma.student.create({
+    // Create user along with their experiences
+    const createdUser:UserDB = await prisma.user.create({
       data: {
-        name: student.name,
-        degree: student.degree,
-        points: student.points,
-        email: student.email,
-        pictureURL: student.pictureURL,
-        experiences: {
-          create: student.experiences, 
-        },
+        id: crypto.randomUUID(),
+        name: user.name,
+        degree: user.degree,
+        points: user.points,
+        email: user.email,
+        pictureURL: user.pictureURL,
+        experiences: user.experiences
       },
     });
 
-    console.log("Student created:", createdStudent);
+    console.log("Student created:", createdUser);
 
-    // Create projects
     for (const projectData of projects) {
-      const createdProject = await prisma.project.create({
+      const createdProject:ProjectDB = await prisma.project.create({
         data: {
+          id: crypto.randomUUID(), 
           name: projectData.name,
           status:  projectData.status, 
           description: projectData.description,
           startDate: projectData.startDate,
           endDate: projectData.endDate, 
           githubRep: projectData.githubRep,
-          tags: {
-            create: projectData.tags.map((tag) => ({name: tag}))
-          }, 
-          languages: {
-            create: projectData.languages.map((language) => ({ name: language })),
-          },
-          frameworks: {
-            create: projectData.frameworks.map((framework) => ({ name: framework })),
-          },
-          pictureURLs: {
-            create: projectData.pictureURLs.map((url) => ({ url })),
-          },
-          studentId: createdStudent.id, 
+          userId: createdUser.id,
+          tags: JSON.stringify(projectData.tags), 
+          languages: JSON.stringify(projectData.languages),
+          frameworks: JSON.stringify(projectData.frameworks),
+          pictureURLs: JSON.stringify(projectData.pictureURLs), 
+          
         },
       });
-
       console.log("Project created:", createdProject);
     }
 
@@ -58,4 +51,12 @@ async function seed() {
   }
 }
 
-seed();
+
+seed()
+  .catch((e) => {
+    console.error(e)
+    process.exit(1)
+  })
+  .finally(async () => {
+    await prisma.$disconnect()
+  })
