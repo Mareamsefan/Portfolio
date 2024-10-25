@@ -1,9 +1,8 @@
-import { userSchemaDB } from "@/features/user/types";
 import { z } from "zod";
 
 
 // Zod schema for the Project
-export const projectsSchema = z.object({
+export const projectsValidateSchema = z.object({
   id: z.string(),
   name: z.string().min(3, 'Name should have at least 3 characters'),
   description: z.string().min(10, 'Description should have at least 10 characters'),
@@ -19,6 +18,21 @@ export const projectsSchema = z.object({
   pictureURLs: z.array(z.string().url('Invalid URL')),
 });
 
+export const projectsSchema = z.object({
+  id: z.string(),
+  name: z.string(), 
+  description: z.string(), 
+  startDate: z.date(),
+  endDate: z.date().nullable(),
+  publishedAt: z.date().nullable(),
+  status: z.string(), 
+  githubRep: z.string(),
+  userId: z.string().nullable(),
+  tags: z.array(z.string()), 
+  languages: z.array(z.string()),
+  frameworks: z.array(z.string()),
+  pictureURLs: z.array(z.string()),
+});
 //Zod schema for the Project in DB
 export const projectsSchemaDB = z.object({
   id: z.string(),
@@ -48,5 +62,5 @@ export type ProjectDB = z.infer<typeof projectsSchemaDB>
 
 // for å validere data fra frontend: 
 export const validateProject = (data: unknown) => {
-  return projectsSchema.safeParse(data); 
+  return projectsValidateSchema.safeParse(data); 
 }

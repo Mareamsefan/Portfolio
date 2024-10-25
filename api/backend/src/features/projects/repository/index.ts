@@ -1,82 +1,44 @@
 import { Result } from '@/lib/Result';
 import prisma, { Prisma } from '@/client/db'
-import { Project} from '@/features/projects/types';
+import { Project, ProjectDB} from '@/features/projects/types';
+import { projectToDb } from '../mappers';
+import { createReadStream } from 'fs';
 
 type ProjectRepository = {
-  list: (query?: Record<string, string>) => Promise<Result<Project>>; 
+  list: (query?: Record<string, string>) => Promise<Result<ProjectDB>>; 
   create: (data: Project) => Promise<Result<Project>>; 
 }
 
 export const createProjectRepository = (prisma: Prisma): ProjectRepository => {
 
-  const create = (data: Project) => {
+  const create = async (data: Project): Promise<Result<ProjectDB>> =>{
     try{
-      //TODO: LAGE EN MAPPER FOR PROJECT 
-      /*Deretter etterligne noe som dette: 
-  export const createStudentRepository = (db: DB): StudentRepository => {
-  const create = (data: Student) => {
-    try {
-      const studentToDb = {
-        id: data.id,
-        name: data.name,
-        created_at: data.createdAt,
-        updated_at: data.updatedAt,
-      };
+      const projectToDbData = projectToDb(data); 
 
-      const query = db.prepare(`
-      INSERT INTO students (id, name, created_at, updated_at) 
-      VALUES (?, ?, ?, ?)
-      `);
-
-      const result = query.run(
-        studentToDb.id,
-        studentToDb.name,
-        studentToDb.created_at,
-        studentToDb.updated_at
-      ) ;
-
-      result.created_at
+      const createdProject = await prisma.project.create({
+        data: projectToDbData, 
+      }); 
 
       return {
-        success: true,
-        data: result,
-      };
-    } catch (error) {
+        success: true, 
+        data: createdProject, 
+      }; 
+    } catch(error){
       return {
-        success: false,
+        success: false, 
         error: {
-          code: "INTERNAL_SERVER_ERROR",
-          message: "Failed creating student",
+          code: 'INTERNAL_SERVER_ERROR', 
+          message: 'Failed creating project', 
         },
-      };
+      }; 
     }
-  };
+  };  
+   
+
 
   return {
-    list: () => {},
-    create,
-  };
-};
-// Eksporterer studentRepository som en instans av createStudentRepository
-// For å sikre at vi ikke må importere DB etc andre steder i koden
-export const studentRepository = createStudentRepository({});
-
-/*
-{
-  success: false,
-  error: {
-    code: "INTERNAL_SERVER_ERROR",
-    message: "Failed creating student",
-  },
-};
-}*/
-
-    }
-  }
-
-  return {
-    list() => {}, 
+    list, 
     create
-  }
-}
+  }; 
+}; 
 
