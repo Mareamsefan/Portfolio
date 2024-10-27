@@ -6,6 +6,7 @@ CREATE TABLE "Project" (
     "startDate" DATETIME NOT NULL,
     "endDate" DATETIME,
     "publishedAt" DATETIME,
+    "updatedAt" DATETIME,
     "status" TEXT NOT NULL,
     "githubRep" TEXT NOT NULL,
     "userId" TEXT,

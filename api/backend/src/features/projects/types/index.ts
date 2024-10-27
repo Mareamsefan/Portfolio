@@ -9,6 +9,7 @@ export const projectsValidateSchema = z.object({
   startDate: z.date(),
   endDate: z.date().nullable(),
   publishedAt: z.date().nullable(),
+  updatedAt: z.date().nullable(),  
   status: z.string(), 
   githubRep: z.string().url('Invalid GitHub URL'),
   userId: z.string().nullable(),
@@ -25,6 +26,7 @@ export const projectsSchema = z.object({
   startDate: z.date(),
   endDate: z.date().nullable(),
   publishedAt: z.date().nullable(),
+  updatedAt: z.date().nullable(), 
   status: z.string(), 
   githubRep: z.string(),
   userId: z.string().nullable(),
@@ -41,6 +43,7 @@ export const projectsSchemaDB = z.object({
   startDate: z.date(),
   endDate: z.date().nullable(),
   publishedAt: z.date().nullable(),
+  updatedAt: z.date().nullable(), 
   status: z.string(), 
   githubRep: z.string(),
   userId: z.string().nullable(),
@@ -51,13 +54,20 @@ export const projectsSchemaDB = z.object({
 
 });
 
+
+
 // Schema for creating a new Project (omit `id`,  `publishedAt` and `userId` )
-export const projectsCreateSchema = projectsSchema.omit({ id: true, publishedAt: true, userId: true});
+export const projectsCreateSchema = projectsSchema.omit({ id: true, publishedAt: true, userId: true, updatedAt: true});
+
+export const projectsUpdateSchema = projectsSchema.omit({ 
+  updatedAt: true,
+});
 
 
 // Extract TypeScript types from the Zod schemas
 export type Project = z.infer<typeof projectsSchema>;
 export type CreateProject = z.infer<typeof projectsCreateSchema>;
+export type UpdateProject = z.infer<typeof projectsUpdateSchema>; 
 export type ProjectDB = z.infer<typeof projectsSchemaDB>
 
 // for å validere data fra frontend: 

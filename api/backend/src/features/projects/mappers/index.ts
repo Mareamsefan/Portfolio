@@ -1,4 +1,4 @@
-import type { CreateProject, Project, ProjectDB } from "@/features/projects/types";
+import type { CreateProject, Project, ProjectDB, UpdateProject } from "@/features/projects/types";
 
 
 const createId = () => {
@@ -15,6 +15,7 @@ export const projectToDb = (data:Project)  => {
       startDate: project.startDate,
       endDate: project.endDate,
       publishedAt: project.publishedAt,
+      updatedAt: project.updatedAt, 
       userId: project.userId,
       status: project.status, 
       githubRep: project.githubRep, 
@@ -34,6 +35,7 @@ export const createProject = (project: Project): ProjectDB => {
     startDate: project.startDate,
     endDate: project.endDate,
     publishedAt: project.publishedAt,
+    updatedAt: project.updatedAt, 
     userId: project.userId,
     status: project.status, 
     githubRep: project.githubRep, 
@@ -43,6 +45,26 @@ export const createProject = (project: Project): ProjectDB => {
     pictureURLs: JSON.stringify(project.pictureURLs)
   };
 }
+
+export const updateProjectToDb = (data: UpdateProject): ProjectDB => {
+  return {
+    id: data.id, 
+    name: data.name,
+    description: data.description,
+    startDate: data.startDate,
+    endDate: data.endDate,
+    publishedAt: data.publishedAt,
+    updatedAt: new Date(), 
+    userId: data.userId, 
+    status: data.status,
+    githubRep: data.githubRep,
+    tags: JSON.stringify(data.tags), 
+    languages: JSON.stringify(data.languages),
+    frameworks: JSON.stringify(data.frameworks),
+    pictureURLs: JSON.stringify(data.pictureURLs),
+  };
+};
+
   export const projectFromDb = (project: ProjectDB):Project => {
     return {
       id: project.id, 
@@ -51,6 +73,7 @@ export const createProject = (project: Project): ProjectDB => {
       startDate: new Date(project.startDate), 
       endDate: project.endDate ? new Date(project.endDate): null, 
       publishedAt: project.publishedAt ? new Date(project.startDate): null, 
+      updatedAt: project.updatedAt ?  new Date(project.startDate): null, 
       status: project.status, 
       githubRep: project.githubRep, 
       userId: project.userId,
