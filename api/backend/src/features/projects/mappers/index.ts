@@ -1,8 +1,13 @@
 import type { CreateProject, Project, ProjectDB } from "@/features/projects/types";
 
 
+const createId = () => {
+  return crypto.randomUUID()
+}
+
 //TODO: oppdatter mapperen til å funke, ta inspo fra: https://github.com/mariuswallin/hiof-webapp-2024/blob/main/demos/classlist/backend/src/features/students/student.mapper.ts
-export const projectToDb = (project: Project):ProjectDB => {
+export const projectToDb = (data:Project)  => {
+  const project = createProject(data)
     return {
       id: project.id,
       name: project.name,
@@ -21,7 +26,23 @@ export const projectToDb = (project: Project):ProjectDB => {
   };
   
 
-
+export const createProject = (project: Project): ProjectDB => {
+  return {
+    id: createId(),
+    name: project.name,
+    description: project.description,
+    startDate: project.startDate,
+    endDate: project.endDate,
+    publishedAt: project.publishedAt,
+    userId: project.userId,
+    status: project.status, 
+    githubRep: project.githubRep, 
+    tags:JSON.stringify(project.tags), 
+    languages: JSON.stringify(project.languages),
+    frameworks: JSON.stringify(project.frameworks),
+    pictureURLs: JSON.stringify(project.pictureURLs)
+  };
+}
   export const projectFromDb = (project: ProjectDB):Project => {
     return {
       id: project.id, 
