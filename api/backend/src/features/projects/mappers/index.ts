@@ -27,16 +27,16 @@ export const projectToDb = (data:Project)  => {
   };
   
 
-export const createProject = (project: Project): ProjectDB => {
+export const createProject = (project: CreateProject): ProjectDB => {
   return {
     id: createId(),
     name: project.name,
     description: project.description,
     startDate: project.startDate,
-    endDate: project.endDate,
-    publishedAt: project.publishedAt,
-    updatedAt: project.updatedAt, 
-    userId: project.userId,
+    endDate: project.endDate ? new Date(project.endDate): null,
+    publishedAt: null,
+    updatedAt: null, 
+    userId: null,
     status: project.status, 
     githubRep: project.githubRep, 
     tags:JSON.stringify(project.tags), 

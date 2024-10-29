@@ -1,31 +1,97 @@
-import { Context } from 'hono';
-import type { Result } from'@lib/';
-import { getProjects } from '../service/indext'
 
+import { Project, CreateProject, UpdateProject, validateProject } from '@/features/projects/types';
+import { z } from 'zod';
+import { Hono } from 'hono';
+import { errorResponse, type ErrorCode } from "@/lib/error";
+import { ProjectService, projectService } from '../service/indext';
 
-//TODO: controller skal bruke app.get/post osv, slik som det er vist her: https://github.com/mariuswallin/hiof-webapp-2024/blob/main/demos/classlist/backend/src/features/students/student.controller.ts
-// Controller for fetching projects in Hono
-export const getProjectsController = async (c: Context) => {
-  try {
-    const projects = await getProjects();
+// Oppretter project controller
+export const createProjectController = (projectService: ProjectService) => {
+  const app = new Hono();
 
-    // Wrap the response in the Result<T> type
-    const result: Result<typeof projects> = {
-      success: true,
-      data: projects,
-    };
+  // Henter et prosjekt basert på ID
+  app.get('/:id', async (c) => {
+    const id = c.req.param('id');
+    const result = await projectService.getById(id);
 
-    return c.json(result); // Return the successful response
-  } catch (error) {
-    // Wrap the error in the Result type
-    const result: Result<null> = {
-      success: false,
-      error: {
-        code: 'FETCH_ERROR',
-        message: 'Failed to fetch projects',
-      },
-    };
+    if (!result.success) {
+      return errorResponse(c, result.error.code as ErrorCode, result.error.message);
+    }
 
-    return c.json(result, 500); // Return the error response with status 500
-  }
+    return c.json(result);
+  });
+
+  // Henter en liste over prosjekter med filtrering
+  app.get('/', async (c) => {
+    const query = c.req.query();
+    const result = await projectService.list(query);
+
+    if (!result.success) {
+      return errorResponse(c, result.error.code as ErrorCode, result.error.message);
+    }
+
+    return c.json(result);
+  });
+
+  // Oppretter et nytt prosjekt
+  app.post('/', async (c) => {
+   // const user = c.get('user'); // Antar brukerdata blir satt i `c.get()`
+    const data = await c.req.json();
+
+    const validation = validateProject(data);
+    if (!validation.success) {
+      return errorResponse(c, 'BAD_REQUEST', 'Invalid project data');
+    }
+
+    const result = await projectService.create({
+      ...validation.data,
+      // Legger til autentisert bruker-ID
+    });
+
+    if (!result.success) {
+      return errorResponse(c, result.error.code as ErrorCode, result.error.message);
+    }
+
+    return c.json(result, { status: 201 });
+  });
+
+  
+  // Oppdaterer et prosjekt basert på ID
+  app.patch('/:id', async (c) => {
+    const id = c.req.param('id');
+    const data = await c.req.json();
+
+    const validation = validateProject(data);
+    if (!validation.success) {
+      return errorResponse(c, 'BAD_REQUEST', 'Invalid project data');
+    }
+
+    const result = await projectService.update({
+      ...validation.data,
+      publishedAt: null,
+      userId: null
+    });
+
+    if (!result.success) {
+      return errorResponse(c, result.error.code as ErrorCode, result.error.message);
+    }
+
+    return c.json(result);
+  });
+
+  // Sletter et prosjekt basert på ID
+  app.delete('/:id', async (c) => {
+    const id = c.req.param('id');
+    const result = await projectService.remove(id);
+
+    if (!result.success) {
+      return errorResponse(c, result.error.code as ErrorCode, result.error.message);
+    }
+
+    return c.json(result);
+  });
+
+  return app;
 };
+
+export const projectController = createProjectController(projectService);

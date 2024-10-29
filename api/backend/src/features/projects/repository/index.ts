@@ -1,17 +1,17 @@
 import { Result } from '@/lib/Result';
-import { Prisma as PrismaType } from '@/client/db'
-import { Project, ProjectDB, UpdateProject} from '@/features/projects/types';
+import {Prisma as PrismaType } from '@/client/db'
+import { CreateProject, Project, ProjectDB, UpdateProject} from '@/features/projects/types';
 import { createProject, projectFromDb, projectToDb, updateProjectToDb } from '../mappers';
 import { createReadStream } from 'fs';
-import { PrismaClient, Prisma } from '@prisma/client';
-import { spec } from 'node:test/reporters';
+import { Prisma } from '@prisma/client';
+import prisma from '@/client/db'
 
 type ProjectRepository = {
-  exist: (id: string) => Promise<boolean>
+  //exist: (id: string) => Promise<boolean>
   getById: (id: string) => Promise<Result<Project>>; 
   list: (query?: Record<string, string>) => Promise<Result<Project[]>>; 
-  create: (data: Project) => Promise<Result<ProjectDB>>; 
-  update: (data: Project) => Promise<Result<Project>>; 
+  create: (data: CreateProject) => Promise<Result<string>>; 
+  update: (data: UpdateProject) => Promise<Result<Project>>; 
   remove: (id: string) => Promise<Result<string>>; 
 }
 
@@ -67,7 +67,7 @@ export const createProjectRepository = (prisma:PrismaType): ProjectRepository =>
   }
 
 
-  const create = async (data: Project): Promise<Result<ProjectDB>> =>{
+  const create = async (data: CreateProject): Promise<Result<string>> =>{
     try{
       const projectToDbData = createProject(data); 
 
@@ -77,7 +77,7 @@ export const createProjectRepository = (prisma:PrismaType): ProjectRepository =>
 
       return {
         success: true, 
-        data: createdProject, 
+        data: createdProject.id, 
       }; 
     } catch(error){
       return {
@@ -105,7 +105,7 @@ export const createProjectRepository = (prisma:PrismaType): ProjectRepository =>
         where: whereClause,
       });
       
-      const projectsFromDB = projects.map((project) => projectFromDb(project));
+      const projectsFromDB = projects.map((project:ProjectDB) => projectFromDb(project));
       
       return {
         success: true,
@@ -198,7 +198,7 @@ export const createProjectRepository = (prisma:PrismaType): ProjectRepository =>
   }; 
 
   return {
-    exist,
+   // exist,
     getById, 
     list, 
     create, 
@@ -207,3 +207,6 @@ export const createProjectRepository = (prisma:PrismaType): ProjectRepository =>
   }
 }; 
 
+export const projectRepository = createProjectRepository(prisma); 
+
+export type {ProjectRepository}; 
