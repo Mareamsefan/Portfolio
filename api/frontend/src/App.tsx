@@ -1,4 +1,4 @@
-import { CreateProject, Project, ProjectArraySchema, Student } from './components/types';
+import { CreateProject, Project, validateProject,} from './components/project/types';
 import ProjectContainer from "./components/project/ProjectContainer"
 import Header from "./components/main/Header"
 import Footer from "./components/main/Footer"
@@ -7,6 +7,7 @@ import Nav from './components/main/Nav';
 import { useEffect, useState } from 'react';
 import About from './components/About';
 import { ofetch } from 'ofetch';
+import { User } from './components/student/types';
 
 function App() {
   const [activePage, setActivePage] = useState('home');
@@ -15,10 +16,25 @@ function App() {
     setActivePage(page);
   };
   const [projectList, setProjectList] = useState<Project[]>([]); 
+
+  const onAddProject = async (project: CreateProject) => {
+    try {
+      const response = await ofetch("http://localhost:3000/v1/projects", {
+        method: 'POST',
+        body: project,
+      });
   
-  const onAddProject = (project: CreateProject) => {
-    setProjectList((prev)=> [...prev, {id:crypto.randomUUID(), ...project}]); 
-  }; 
+      if (response.success) {
+        // Anta at serveren returnerer det opprettede prosjektet med ID
+        setProjectList((prev) => [...prev, response.data]);
+      } else {
+        console.error("Failed to create project:", response.error);
+      }
+    } catch (error) {
+      console.error("Error adding project:", error);
+    }
+  };
+  
 
   const onRemoveProject = (id:string) => {
     setProjectList((prev) => prev.filter((student)=> student.id !== id)); 
@@ -27,13 +43,13 @@ function App() {
   useEffect(() => {
     const loadProjects = async () => {
       try {
-        const response = await ofetch("http://localhost:3000/projects"); 
+        const response = await ofetch("http://localhost:3000/v1/projects"); 
         console.log(response)
          
         console.log(response);
         
-        ProjectArraySchema.safeParse(response); 
-        setProjectList(response); 
+        validateProject(response.data); 
+        setProjectList(response.data); 
 
 
       }catch(error){
@@ -48,30 +64,16 @@ function App() {
  
   
  
-  
-  
-  const studentWithNoExperience: Student = {
-    name: "Maream Sefan",
-    degree: "Bachelor in informatics",
-    points: 120,
-    email: "mareamns@hiof.no",
-    pictureURL: "https://itstud.hiof.no/~mareamns/pf-removebg-preview.png", 
-    experiences: [
-	  ],
-   
-  };
 
-  const student: Student = {
+
+  const student: User = {
+    id: crypto.randomUUID(),
     name: "Maream Sefan",
     degree: "Bachelor in informatics",
     points: 120,
     email: "mareamns@hiof.no",
     pictureURL: "https://itstud.hiof.no/~mareamns/pf-removebg-preview.png", 
-    experiences: [
-      { name: "Figma UI for customer X" },
-		  { name: "Website for customer Y" }
-  
-	  ],
+    experiences: ["Figma UI for customer X", " Website for customer Y" ]
    
   }; 
 

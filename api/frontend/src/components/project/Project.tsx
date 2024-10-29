@@ -1,5 +1,5 @@
 import { useState } from "react";
-import {ProjectSchema, Project as ProjectPorps } from "./types";
+import { Project as ProjectPorps } from "./types";
 import { ofetch } from "ofetch";
 
  
@@ -9,15 +9,16 @@ export default function Project(project: ProjectPorps
     const {
         id,
         name, 
-        role, 
         description,
         languages, 
         frameworks, 
         startDate, 
         githubRep, 
-        pictureURL, 
+        pictureURLs, 
         onRemoveProject
     } = project 
+
+    
 
     const [hovered, sethovered] = useState<boolean>(false);
 
@@ -29,12 +30,12 @@ export default function Project(project: ProjectPorps
     }
     const handleRemoveProject = async () => {
         try {
-            const response = await fetch(`http://localhost:3000/project`, {
+            const response = await fetch(`http://localhost:3000/v1/project`, {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify(project), 
+                body: project.id, 
             });
             onRemoveProject(project.id);
             
@@ -45,7 +46,7 @@ export default function Project(project: ProjectPorps
     
     return (
         <article className="project" onMouseOver={updateShowState} onMouseLeave={setShowRemove}>
-            <img src={pictureURL} alt ={`Image of ${project.name}`}/>
+            <img src={pictureURLs[0]} alt ={`Image of ${project.name}`}/>
             <a href={githubRep} target="_blank">{name}</a>
             {hovered && (
             <button type="submit" onClick={handleRemoveProject}>Remove project</button>

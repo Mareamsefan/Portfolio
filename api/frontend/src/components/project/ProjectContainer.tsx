@@ -1,5 +1,5 @@
 import Project from "./Project"
-import {CreateProject, Project as ProjectProps, Student} from "../types"
+import {CreateProject, Project as ProjectProps} from "../project/types"
 import CreateProjectForm from "./CreateProjectForm";
 import ProjectCounter from "./ProjectCounter";
 

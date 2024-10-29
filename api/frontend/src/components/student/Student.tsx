@@ -1,7 +1,8 @@
-import { Student as StudentProps } from "./../types";
+import { User as StudentProps } from "./types";
 
 export default function Student (props: StudentProps) {
     const{name, degree, points, pictureURL} = props
+    if (pictureURL)
     return (
         <>
         <article id="pfp-container">

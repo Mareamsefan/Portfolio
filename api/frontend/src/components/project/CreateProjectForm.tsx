@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { CreateProject, ProjectCreateSchema } from "../types";
+import { CreateProject } from "./types";
 import { ofetch } from "ofetch";
 
 type AddProjectFormProps = {
@@ -10,31 +10,35 @@ export default function CreateProjectForm(props: AddProjectFormProps) {
   const { onAddProject } = props;
 
   const [name, setName] = useState('');
-  const [role, setRole] = useState('');
   const [description, setDescription] = useState('');
+  const [tags, setTags] = useState('');
   const [languages, setLanguages] = useState('');
   const [frameworks, setFrameworks] = useState('');
   const [startDate, setStartDate] = useState('');
+  const [status, setStatus] = useState('');
+  const [endDate, setEndDate] = useState('');
   const [githubRep, setGithubRep] = useState<string>('');
-  const [pictureURL, setPictureURL] = useState('');
+  const [pictureURLs, setPictureURLs] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     const newProject: CreateProject = {
       name,
-      role,
       description,
+      startDate: new Date(startDate), 
+      endDate: new Date(endDate), 
+      status,
+      githubRep,
+      tags: tags.split(',').map((tag) => tag.trim()), 
       languages: languages.split(',').map((lang) => lang.trim()), 
       frameworks: frameworks.split(',').map((fw) => fw.trim()), 
-      startDate: new Date(startDate),  
-      githubRep,
-      pictureURL
+      pictureURLs: pictureURLs.split(',').map((pictureURL) => pictureURL.trim())
     };
 
     try {
 
-      const result = await ofetch("http://localhost:3000/add", {
+      const result = await ofetch("http://localhost:3000/v1/projects", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -47,12 +51,15 @@ export default function CreateProjectForm(props: AddProjectFormProps) {
 
       
       setName('');
-      setRole('');
+      setStartDate('');
+      setEndDate(''); 
+      setStatus(''); 
       setDescription('');
+      setTags(''); 
       setLanguages('');
       setFrameworks('');
       setGithubRep('');
-      setPictureURL('');
+      setPictureURLs('');
     } catch (error) {
       console.error("Error submitting the project:", error);
     }
@@ -72,17 +79,6 @@ export default function CreateProjectForm(props: AddProjectFormProps) {
           placeholder="Enter the project name..."
         />
 
-        <label htmlFor="roleAndResponsibilities">Role and responsibilities:</label>
-        <textarea
-          id="roleAndResponsibilities"
-          className="input"
-          name="roleAndResponsibilities"
-          rows={4}
-          value={role}
-          onChange={(e) => setRole(e.target.value)}
-          placeholder="Describe your role and responsibilities..."
-        />
-
         <label htmlFor="description">Project description:</label>
         <textarea
           id="description"
@@ -94,6 +90,17 @@ export default function CreateProjectForm(props: AddProjectFormProps) {
           placeholder="Enter your project description here..."
         />
 
+
+      <label htmlFor="tags">Tags:</label>
+        <textarea
+          id="tags"
+          className="input"
+          name="tags"
+          rows={2}
+          value={tags}
+          onChange={(e) => setTags(e.target.value)}
+          placeholder="List the tags for this project..."
+        />
         <label htmlFor="languagesUsed">Languages used:</label>
         <textarea
           id="languagesUsed"
@@ -125,6 +132,24 @@ export default function CreateProjectForm(props: AddProjectFormProps) {
           onChange={(e) => setStartDate(e.target.value)}
         />
 
+        <label htmlFor="endDate">End date:</label>
+        <input
+          type="date"
+          id="endDate"
+          className="input"
+          value={endDate}
+          onChange={(e) => setEndDate(e.target.value)}
+        />
+        <label htmlFor="Status">status:</label>
+        <input
+          type="text"
+          id="status"
+          className="input"
+          value={status}
+          onChange={(e) => setStatus(e.target.value)}
+          placeholder="Enter the project status..."
+        />
+
         <label htmlFor="githubRepository">Github repository:</label>
         <input
           type="text"
@@ -135,14 +160,14 @@ export default function CreateProjectForm(props: AddProjectFormProps) {
           placeholder="Enter the GitHub repository URL..."
         />
 
-        <label htmlFor="projectPictureURL">Project picture:</label>
+        <label htmlFor="projectPictureURLs">Project picture:</label>
         <input
           type="text"
-          id="projectPictureURL"
+          id="projectPictureURLs"
           className="input"
-          value={pictureURL}
-          onChange={(e) => setPictureURL(e.target.value)}
-          placeholder="Enter the picture URL..."
+          value={pictureURLs}
+          onChange={(e) => setPictureURLs(e.target.value)}
+          placeholder="Enter the picture URLs..."
         />
         <button type="submit">Register</button>
       </form>

@@ -74,7 +74,6 @@ export type ProjectDB = z.infer<typeof projectsSchemaDB>
 export const validateProject = (data: unknown) => {
   return projectsValidateSchema.safeParse(data); 
 }
-// for å validere data fra frontend: 
 export const validateCreateProject = (data: unknown) => {
-  return projectsCreateSchema.safeParse(data); 
-}
+    return projectsCreateSchema.safeParse(data); 
+  }

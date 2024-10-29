@@ -3,7 +3,7 @@
 
 import { Result } from "@/lib/Result";
 import { projectRepository, ProjectRepository } from "../repository";
-import { CreateProject, Project, UpdateProject, validateProject } from "../types";
+import { CreateProject, Project, UpdateProject, validateCreateProject, validateProject } from "../types";
 import { createProject, updateProjectToDb } from "../mappers";
 
 /*TODO: Skrive om servicelaget, ved å fjerne map, for map skal brukes i repo, men heller bare sende 
@@ -28,7 +28,7 @@ import { createProject, updateProjectToDb } from "../mappers";
     }
 
     const create = async (data: CreateProject): Promise<Result<string>> => {
-        if (!validateProject(data).success){
+        /*if (!validateCreateProject(data).success){
             return {
                 success: false, 
                 error: {
@@ -36,7 +36,7 @@ import { createProject, updateProjectToDb } from "../mappers";
                     message: 'Invalid project data'
                 }, 
             }; 
-        }
+        }*/
         return projectRepository.create(data)
 
     }

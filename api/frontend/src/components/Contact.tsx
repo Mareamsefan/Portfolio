@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Student } from "./types";
+import { Student } from "./types.ts";
 
 export default function Contact ({student}: {student:Student}) { 
     const [name, setName] = useState('');

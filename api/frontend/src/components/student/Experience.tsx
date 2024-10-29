@@ -1,4 +1,4 @@
-import {Experience as ExperienceProps} from "./types";
+import {Experience as ExperienceProps} from "../types";
 import type { PropsWithChildren } from "react";
 
 export default function Experience (props: Readonly<PropsWithChildren<ExperienceProps>>) {

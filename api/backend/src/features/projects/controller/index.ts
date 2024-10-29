@@ -1,5 +1,5 @@
 
-import { Project, CreateProject, UpdateProject, validateProject } from '@/features/projects/types';
+import { Project, CreateProject, UpdateProject, validateProject, validateCreateProject } from '@/features/projects/types';
 import { z } from 'zod';
 import { Hono } from 'hono';
 import { errorResponse, type ErrorCode } from "@/lib/error";
@@ -37,16 +37,16 @@ export const createProjectController = (projectService: ProjectService) => {
   app.post('/', async (c) => {
    // const user = c.get('user'); // Antar brukerdata blir satt i `c.get()`
     const data = await c.req.json();
-
-    const validation = validateProject(data);
+  /*
+    const validation = validateCreateProject(data);
     if (!validation.success) {
       return errorResponse(c, 'BAD_REQUEST', 'Invalid project data');
-    }
+    }*/
 
-    const result = await projectService.create({
-      ...validation.data,
+    const result = await projectService.create(
+      data
       // Legger til autentisert bruker-ID
-    });
+    );
 
     if (!result.success) {
       return errorResponse(c, result.error.code as ErrorCode, result.error.message);
