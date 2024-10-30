@@ -8,23 +8,19 @@ type ProjectCardProps = {
   onProjectClick: (project: ProjectProps) => void;
 };
 
-export default function ProjectCard({ project, onProjectClick, onRemoveProject }: ProjectCardProps) {
+export default function ProjectCard({ project }: ProjectCardProps) {
   const {
     id,
     name,
-    description,
-    languages,
-    frameworks,
-    startDate,
     githubRep,
     pictureURLs,
   } = project;
 
   const [hovered, setHovered] = useState<boolean>(false);
-  const navigate = useNavigate(); // Initialize navigate
+  const navigate = useNavigate(); 
 
   const handleProjectClick = () => {
-    navigate(`/project/${id}`); // Navigate to project details with the project ID
+    navigate(`/project/${id}`); 
   };
 
   const updateShowState = () => {

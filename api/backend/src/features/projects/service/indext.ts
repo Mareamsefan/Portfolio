@@ -1,15 +1,8 @@
-
-// her skal du kun sende videre data til rep, kanskje kan du validere dersom du ikke gjør det i controller
-
 import { Result } from "@/lib/Result";
 import { projectRepository, ProjectRepository } from "../repository";
 import { CreateProject, Project, UpdateProject, validateCreateProject, validateProject } from "../types";
 import { createProject, updateProjectToDb } from "../mappers";
 
-/*TODO: Skrive om servicelaget, ved å fjerne map, for map skal brukes i repo, men heller bare sende 
- videre repo til controller, kan se noe slik ut: (HUSK å bruke valideringsmetodene som liger i types her i service)
- https://github.com/mariuswallin/hiof-webapp-2024/blob/main/demos/classlist/backend/src/features/students/student.service.ts
- */
 
  export const createProjectService = (projectRepository: ProjectRepository) => {
     

@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { Project as ProjectProps } from "./types";
+import { Project as ProjectProps } from "../components/project/types";
 import { format } from "date-fns";
 import { endpoints } from "../config/urls";
+import { useNavigate } from "react-router-dom";
 
 export default function Project(project: ProjectProps &
     {onRemoveProject: (id:string) => void;} &
@@ -22,7 +23,7 @@ export default function Project(project: ProjectProps &
         onRemoveProject
     } = project;
 
-
+    const navigate = useNavigate();  // Initialize navigate hook
     const [isEditing, setIsEditing] = useState(false);
     const [editData, setEditData] = useState({ ...project });
 
@@ -36,8 +37,10 @@ export default function Project(project: ProjectProps &
                 },
                 body: JSON.stringify({ id }),
             });
+            console.log(result)
             onRemoveProject(id);
-            //console.log(result.da)
+            alert("Project deleted successfully!");
+            navigate("/");  
         } catch (error) {
             console.error("Error deleting the project:", error);
         }
@@ -61,11 +64,14 @@ export default function Project(project: ProjectProps &
             const updatedProject = await response.json();
             onUpdateProject(updatedProject.id);
             setIsEditing(false);
+            alert("Project updated successfully!");
+            navigate(`/project/${id}`);  
         } catch (error) {
             console.error("Error updating the project:", error);
         }
     };
-
+ 
+    
     // Funksjon for å avbryte redigering
     const handleCancelEdit = () => {
         setIsEditing(false);

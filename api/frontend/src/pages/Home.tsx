@@ -21,12 +21,11 @@ export const user: User = {
    
   }; 
 
-const Home: React.FC<HomeProps> = ({ projectList, onAddProject, onRemoveProject, onProjectClick }) => (
+const Home: React.FC<HomeProps> = ({ projectList, onRemoveProject, onProjectClick }) => (
   <>
     <Header user={user} />
     <ProjectContainer 
-      projectList={projectList} 
-      onAddProject={onAddProject} 
+      projectList={projectList}
       onRemoveProject={onRemoveProject} 
       onProjectClick={onProjectClick} 
     />

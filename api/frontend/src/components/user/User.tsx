@@ -1,6 +1,6 @@
 import { User as UserProps } from "./types";
 
-export default function User (props: UserProps) {
+export default function User (props: Readonly<UserProps>) {
     const{name, degree, points, pictureURL} = props
     if (pictureURL)
     return (

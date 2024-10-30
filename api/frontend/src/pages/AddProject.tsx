@@ -1,13 +1,13 @@
 import { useState } from "react";
-import { createProject, CreateProject } from "./types";
+import { CreateProject, createProject, Project as ProjectProps} from "../components/project/types";
 import { ofetch } from "ofetch";
-import { endpoints } from "../../config/urls";
+import { endpoints } from "../config/urls";
 
 type AddProjectFormProps = {
-  onAddProject: (project: CreateProject) => void;
+  onAddProject: (project: ProjectProps) => void;
 };
 
-export default function CreateProjectForm(props: AddProjectFormProps) {
+export default function AddProject(props: AddProjectFormProps) {
   const { onAddProject } = props;
 
   const [name, setName] = useState('');
@@ -49,7 +49,7 @@ export default function CreateProjectForm(props: AddProjectFormProps) {
       });
 
       console.log("New project added successfully", result);
-      onAddProject(newProject);
+      onAddProject(projectToBackend);
 
       
       setName('');
@@ -142,7 +142,7 @@ export default function CreateProjectForm(props: AddProjectFormProps) {
           value={endDate}
           onChange={(e) => setEndDate(e.target.value)}
         />
-        <label htmlFor="Status">status:</label>
+        <label htmlFor="status">status:</label>
         <input
           type="text"
           id="status"

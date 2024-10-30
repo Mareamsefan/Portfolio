@@ -60,6 +60,8 @@ const createId = () => {
 
 export const createProject = (project: CreateProject): Project => {
   return {
+    //TODO: DU LAGER TO FORSKJELLIGE UUIDER FOR PROJEKTER SÅ DEN SOM LAGRES PÅ DATABASEN OG DEN SOM 
+    //LAGES HER MED CREATEPROJECT ER TO FORSKJELLIGE !!! FIKS VALIDERING FOR Å UNNGÅ DETTE
     id: createId(),
     name: project.name,
     description: project.description,

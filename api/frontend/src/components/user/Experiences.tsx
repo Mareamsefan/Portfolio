@@ -1,5 +1,5 @@
 
-export default function Experiences({experiences}:{experiences?:string[]} ) {
+export default function Experiences({experiences}:Readonly<{experiences?:string[]}> ) {
     return (
         <article id="experiences">
             <h3>Experiences: </h3>

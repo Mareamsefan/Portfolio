@@ -2,7 +2,7 @@ import Experiences from "../user/Experiences.tsx";
 import User from "../user/User.tsx";
 import {User as UserProps2} from "../user/types.tsx";
 
-export default function Header ({user}: {user: UserProps2}) {
+export default function Header ({user}: Readonly<{user: UserProps2}>) {
 
     const {id, name, degree, points, pictureURL} = user
     return (

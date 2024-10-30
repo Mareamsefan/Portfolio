@@ -5,7 +5,6 @@ const createId = () => {
   return crypto.randomUUID()
 }
 
-//TODO: oppdatter mapperen til å funke, ta inspo fra: https://github.com/mariuswallin/hiof-webapp-2024/blob/main/demos/classlist/backend/src/features/students/student.mapper.ts
 export const projectToDb = (data:Project)  => {
   const project = createProject(data)
     return {

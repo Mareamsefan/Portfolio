@@ -1,5 +1,5 @@
 
-import { Project, CreateProject, UpdateProject, validateProject, validateCreateProject } from '@/features/projects/types';
+import { Project, CreateProject, UpdateProject, validateProject,} from '@/features/projects/types';
 import { z } from 'zod';
 import { Hono } from 'hono';
 import { errorResponse, type ErrorCode } from "@/lib/error";

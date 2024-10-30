@@ -1,17 +1,15 @@
-import {CreateProject, Project as ProjectProps} from "../project/types"
-import CreateProjectForm from "./CreateProjectForm";
+import { Project as ProjectProps} from "../project/types"
 import ProjectCounter from "./ProjectCounter";
 import ProjectCard from "./ProjectCard";
 
 type ProjectContainerProps = {
     projectList: ProjectProps[]; 
-    onAddProject: (project: any) => void; 
     onRemoveProject: (id:string) => void; 
     onProjectClick: (project: ProjectProps) => void;
 }
 
 export default function ProjectContainer (props: ProjectContainerProps) {
-   const {projectList, onAddProject, onRemoveProject, onProjectClick} = props;
+   const {projectList, onRemoveProject, onProjectClick} = props;
 
     return (
         <>
@@ -29,8 +27,6 @@ export default function ProjectContainer (props: ProjectContainerProps) {
                     ))
                 )}
             </section>
-        <CreateProjectForm onAddProject={onAddProject} />
-        
         </>
     )
 }
