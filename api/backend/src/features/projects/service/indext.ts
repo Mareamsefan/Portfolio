@@ -28,15 +28,6 @@ import { createProject, updateProjectToDb } from "../mappers";
     }
 
     const create = async (data: CreateProject): Promise<Result<string>> => {
-        /*if (!validateCreateProject(data).success){
-            return {
-                success: false, 
-                error: {
-                    code: 'BAD_REQUEST', 
-                    message: 'Invalid project data'
-                }, 
-            }; 
-        }*/
         return projectRepository.create(data)
 
     }

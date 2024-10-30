@@ -1,4 +1,4 @@
-type NavProps = {
+export type NavProps = {
     onNavClick: (page:string) => void; 
 }
 

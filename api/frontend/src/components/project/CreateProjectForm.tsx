@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { CreateProject } from "./types";
+import { createProject, CreateProject } from "./types";
 import { ofetch } from "ofetch";
+import { endpoints } from "../../config/urls";
 
 type AddProjectFormProps = {
   onAddProject: (project: CreateProject) => void;
@@ -37,13 +38,14 @@ export default function CreateProjectForm(props: AddProjectFormProps) {
     };
 
     try {
+      const projectToBackend = createProject(newProject)
 
-      const result = await ofetch("http://localhost:3000/v1/projects", {
+      const result = await ofetch(`${endpoints.projects}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: newProject,  
+        body: projectToBackend,  
       });
 
       console.log("New project added successfully", result);

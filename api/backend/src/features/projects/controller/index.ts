@@ -4,6 +4,7 @@ import { z } from 'zod';
 import { Hono } from 'hono';
 import { errorResponse, type ErrorCode } from "@/lib/error";
 import { ProjectService, projectService } from '../service/indext';
+import { createProject } from '../mappers';
 
 // Oppretter project controller
 export const createProjectController = (projectService: ProjectService) => {
@@ -35,13 +36,24 @@ export const createProjectController = (projectService: ProjectService) => {
 
   // Oppretter et nytt prosjekt
   app.post('/', async (c) => {
-   // const user = c.get('user'); // Antar brukerdata blir satt i `c.get()`
+    // const user = c.get('user'); // Antar brukerdata blir satt i `c.get()`
     const data = await c.req.json();
-  /*
-    const validation = validateCreateProject(data);
+   
+   console.log(`DETTE MÅ SKRIVES UT: ${JSON.stringify(data, null, 2)}`); 
+   if (data.endDate) {
+       data.endDate = new Date(data.endDate);
+    }  
+    if (data.startDate) {
+    data.startDate = new Date(data.startDate);
+    }
+    //const project = createProject()
+    const validation = validateProject(data);
     if (!validation.success) {
+      console.log(validation.error)
       return errorResponse(c, 'BAD_REQUEST', 'Invalid project data');
-    }*/
+      
+    }
+  
 
     const result = await projectService.create(
       data
@@ -60,9 +72,21 @@ export const createProjectController = (projectService: ProjectService) => {
   app.patch('/:id', async (c) => {
     const id = c.req.param('id');
     const data = await c.req.json();
+  
+    console.log(`DETTE MÅ SKRIVES UT: ${JSON.stringify(data, null, 2)}`); 
+    if (data.endDate) {
+      data.endDate = new Date(data.endDate);
+   }  
+   if (data.startDate) {
+   data.startDate = new Date(data.startDate);
+   }
+   if (data.updatedAt) {
+    data.updatedAt = new Date(data.updatedAt);
+    }
 
     const validation = validateProject(data);
     if (!validation.success) {
+      console.log(validation.error)
       return errorResponse(c, 'BAD_REQUEST', 'Invalid project data');
     }
 
@@ -87,7 +111,7 @@ export const createProjectController = (projectService: ProjectService) => {
     if (!result.success) {
       return errorResponse(c, result.error.code as ErrorCode, result.error.message);
     }
-
+    console.log(`DET SKJER NOE LOL: ${JSON.stringify(result)}`)
     return c.json(result);
   });
 

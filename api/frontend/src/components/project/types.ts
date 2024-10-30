@@ -54,6 +54,28 @@ export const projectsSchemaDB = z.object({
 
 });
 
+const createId = () => {
+  return crypto.randomUUID()
+}
+
+export const createProject = (project: CreateProject): Project => {
+  return {
+    id: createId(),
+    name: project.name,
+    description: project.description,
+    startDate: new Date(project.startDate),
+    endDate: project.endDate ? new Date(project.endDate): null,
+    publishedAt: null,
+    updatedAt: null, 
+    userId: null,
+    status: project.status, 
+    githubRep: project.githubRep, 
+    tags:project.tags, 
+    languages: project.languages,
+    frameworks: project.frameworks,
+    pictureURLs: project.pictureURLs
+  };
+}
 
 
 // Schema for creating a new Project (omit `id`,  `publishedAt` and `userId` )
