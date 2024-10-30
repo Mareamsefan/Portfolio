@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Project as ProjectProps } from "./types";
 import { format } from "date-fns";
-import { endpoints } from "../../config/urls";
+import { endpoints } from "../config/urls";
 
 export default function Project(project: ProjectProps &
     {onRemoveProject: (id:string) => void;} &
@@ -37,7 +37,7 @@ export default function Project(project: ProjectProps &
                 body: JSON.stringify({ id }),
             });
             onRemoveProject(id);
-            console.log(result.da)
+            //console.log(result.da)
         } catch (error) {
             console.error("Error deleting the project:", error);
         }

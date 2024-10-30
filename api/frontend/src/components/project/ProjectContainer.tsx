@@ -2,7 +2,6 @@ import {CreateProject, Project as ProjectProps} from "../project/types"
 import CreateProjectForm from "./CreateProjectForm";
 import ProjectCounter from "./ProjectCounter";
 import ProjectCard from "./ProjectCard";
-import { NavProps } from "../main/Nav";
 
 type ProjectContainerProps = {
     projectList: ProjectProps[]; 

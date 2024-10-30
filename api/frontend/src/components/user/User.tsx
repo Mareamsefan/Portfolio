@@ -1,6 +1,6 @@
-import { User as StudentProps } from "./types";
+import { User as UserProps } from "./types";
 
-export default function Student (props: StudentProps) {
+export default function User (props: UserProps) {
     const{name, degree, points, pictureURL} = props
     if (pictureURL)
     return (

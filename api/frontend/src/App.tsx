@@ -1,72 +1,48 @@
-import { createProject, CreateProject, Project as ProjectProps, validateProject,} from './components/project/types';
-import ProjectContainer from "./components/project/ProjectContainer"
-import Header from "./components/main/Header"
-import Footer from "./components/main/Footer"
-import Contact from './components/Contact';
-import Nav from './components/main/Nav';
-import { useEffect, useState } from 'react';
-import About from './components/About';
+// src/App.tsx
+import { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, useParams } from 'react-router-dom';
+import Layout from './components/Layout';
+import Home, { user } from './pages/Home';
+import ProjectDetails from './pages/Project';
+import { Project as ProjectProps } from './components/project/types';
 import { ofetch } from 'ofetch';
-import { User } from './components/student/types';
-import Project  from './components/project/Project';
 import { endpoints } from './config/urls';
-
+import About from './pages/About';
+import Contact from './pages/Contact';
+import Project from './pages/Project';
 
 function App() {
-  const [activePage, setActivePage] = useState('home');
+  const [projectList, setProjectList] = useState<ProjectProps[]>([]);
   const [selectedProject, setSelectedProject] = useState<ProjectProps | null>(null);
-  const handleNavClick = (page:string) => {
-    setActivePage(page);
-    if (page !== 'project'){
-      setSelectedProject(null);
-    }
-  };
-
-  const handleProjectClick = (project: ProjectProps) => {
-    setSelectedProject(project); 
-    setActivePage('project'); 
-  }
-  const [projectList, setProjectList] = useState<ProjectProps[]>([]); 
-
-  const onAddProject = (project: CreateProject) => {
-    //setProjectList((prev)=> [...prev, createProject]); 
-  }; 
-  
-
-  const onRemoveProject = (id:string) => {
-    setProjectList((prev) => prev.filter((student)=> student.id !== id)); 
-  }
 
   useEffect(() => {
     const loadProjects = async () => {
       try {
-        const response = await ofetch(endpoints.projects); 
-        console.log(response)
-         
-        console.log(response);
-        
-        validateProject(response.data); 
-        setProjectList(response.data); 
-
-
-      }catch(error){
-        console.error("Error loading projects:", error); 
+        const response = await ofetch(endpoints.projects);
+        setProjectList(response.data);
+      } catch (error) {
+        console.error("Error loading projects:", error);
       }
+    };
+    loadProjects();
+  }, []);
 
-    }
-     loadProjects();
-  }, 
-  []);
+  const handleProjectClick = (project: ProjectProps) => setSelectedProject(project);
 
-  // Funksjon for å oppdatere et spesifikt prosjekt
+  const onAddProject = (newProject: ProjectProps) => {
+    setProjectList((prev) => [...prev, newProject]);
+  };
+
+  const onRemoveProject = (id: string) => {
+    setProjectList((prev) => prev.filter((project) => project.id !== id));
+  };
+
   const onUpdateProject = async (updatedProjectId: string) => {
     try {
       const updatedProject = await ofetch(`${endpoints.projects}/${updatedProjectId}`);
-      
       setProjectList((prev) =>
         prev.map((p) => (p.id === updatedProjectId ? updatedProject : p))
       );
-      
       if (selectedProject?.id === updatedProjectId) {
         setSelectedProject(updatedProject);
       }
@@ -74,47 +50,46 @@ function App() {
       console.error("Error fetching updated project:", error);
     }
   };
+
+    // ProjectDetails component to handle showing a specific project
+    const ProjectDetailsPage = () => {
+      const { projectId } = useParams<{ projectId: string }>();
+      const project = projectList.find(p => p.id === projectId); // Find the project by ID
   
- 
-
-
-  const student: User = {
-    id: crypto.randomUUID(),
-    name: "Maream Sefan",
-    degree: "Bachelor in informatics",
-    points: 120,
-    email: "mareamns@hiof.no",
-    pictureURL: "https://itstud.hiof.no/~mareamns/pf-removebg-preview.png", 
-    experiences: ["Figma UI for customer X", " Website for customer Y" ]
-   
-  }; 
+      return project ? (
+        <Project
+          {...project}
+          onRemoveProject={onRemoveProject}
+          onUpdateProject={onUpdateProject}
+        />
+      ) : (
+        <p>Project not found.</p>
+      );
+    };
 
   return (
-   <>
-   <Nav onNavClick={handleNavClick}/>
-   <main>
-    {activePage === 'home' && (
-      <>
-      <Header student={student}/>
-      <ProjectContainer projectList={projectList} onAddProject={onAddProject} 
-       onRemoveProject={onRemoveProject} onProjectClick={handleProjectClick} />
-      </>
-    )}
-    {activePage === 'about' && <About />}
-    {activePage === 'contact' && <Contact student={student} /> }
-    {activePage === 'project' && selectedProject && (
-          <Project
-            {...selectedProject}
-            onRemoveProject={onRemoveProject}
-            onUpdateProject={onUpdateProject}
+    console.log(selectedProject), 
+    <Router>
+      <Layout>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <Home
+                projectList={projectList}
+                onAddProject={onAddProject}
+                onRemoveProject={onRemoveProject}
+                onProjectClick={handleProjectClick}
+              />
+            }
           />
-        )}
-   
-    </main>
-   <Footer />
-   
-   </>
-  )
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact user={user} />} />
+          <Route path="/project/:projectId" element={<ProjectDetailsPage />} /> {/* New route for project details */}
+        </Routes>
+      </Layout>
+    </Router>
+  );
 }
 
-export default App
+export default App;

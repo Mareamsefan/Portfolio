@@ -39,7 +39,7 @@ export default function CreateProjectForm(props: AddProjectFormProps) {
 
     try {
       const projectToBackend = createProject(newProject)
-
+        
       const result = await ofetch(`${endpoints.projects}`, {
         method: "POST",
         headers: {
