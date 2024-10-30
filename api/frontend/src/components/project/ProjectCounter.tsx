@@ -1,5 +1,5 @@
 
-export default function ProjectCounter({total}: {total:number}) {
+export default function ProjectCounter({total}: Readonly<{total:number}>) {
 
     if(total === 0) return null; 
     return (

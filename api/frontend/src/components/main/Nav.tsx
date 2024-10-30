@@ -1,14 +1,12 @@
-type NavProps = {
-    onNavClick: (page:string) => void; 
-}
+import { Link } from "react-router-dom";
 
-export default function Nav(props: NavProps) {
-    const {onNavClick} = props
+export default function Nav() {
     return (
         <nav>
-        <a href="#" onClick={() => onNavClick('home')}>Home</a>
-        <a href="#" onClick={() => onNavClick('about')}>About me</a>
-        <a href="#"onClick={() => onNavClick('contact')}>Contact</a>
+            <Link to="/">Home</Link>
+            <Link to="/about">About me</Link>
+            <Link to="/contact">Contact</Link>
+            <Link to="/addProject">Add project +</Link>
         </nav>
     );
 }

@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { Student } from "./types";
+import { User } from "../components/user/types";
 
-export default function Contact ({student}: {student:Student}) { 
+export default function Contact ({user}: {user:User}) { 
     const [name, setName] = useState('');
     const [message, setMessage] = useState('');
     const [submittedData, setSubmittedData] = useState<{ name: string; message: string } | null>(null);
@@ -20,7 +20,7 @@ export default function Contact ({student}: {student:Student}) {
     return(
         <section id="contactSection">
         <h1>Contact</h1>
-        <button type="submit" onClick={() => { alert(`Email: ${student.email}`);}}>Click me to view the email</button>
+        <button type="submit" onClick={() => { alert(`Email: ${user.email}`);}}>Click me to view the email</button>
         <form id="contactForm" onSubmit={handleSubmit}>
             <label>
               Name:

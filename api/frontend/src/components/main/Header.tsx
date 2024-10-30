@@ -1,15 +1,15 @@
-import Experiences from "../student/Experiences";
-import Student from "../student/Student";
-import { Student as StudentProps } from "../types";
+import Experiences from "../user/Experiences.tsx";
+import User from "../user/User.tsx";
+import {User as UserProps2} from "../user/types.tsx";
 
-export default function Header ({student}: {student: StudentProps}) {
+export default function Header ({user}: Readonly<{user: UserProps2}>) {
 
-    const {name, degree, points, pictureURL} = student
+    const {id, name, degree, points, pictureURL} = user
     return (
         <header>
             <section id="bio-container">
-           <Student name={name} degree={degree} points={points}  pictureURL={pictureURL} />
-           <Experiences experiences={student.experiences} />
+           <User id={id} name={name} degree={degree} points={points} pictureURL={pictureURL} email={null} experiences={['']} />
+           <Experiences experiences={user.experiences} />
            </section>
         </header>
         

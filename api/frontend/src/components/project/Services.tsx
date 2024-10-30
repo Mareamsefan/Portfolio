@@ -1,0 +1,1 @@
+//TODO: bruke denne osm inspo og lage servicelag: https://github.com/mariuswallin/hiof-webapp-2024/blob/main/v4/frontend/src/features/habits/services/api.ts 
