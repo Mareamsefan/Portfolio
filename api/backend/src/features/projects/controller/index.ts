@@ -36,10 +36,10 @@ export const createProjectController = (projectService: ProjectService) => {
 
   // Oppretter et nytt prosjekt
   app.post('/', async (c) => {
-    // const user = c.get('user'); // Antar brukerdata blir satt i `c.get()`
+    // const user = c.get('user'); 
     const data = await c.req.json();
    
-   console.log(`DETTE MÅ SKRIVES UT: ${JSON.stringify(data, null, 2)}`); 
+   console.log(`${JSON.stringify(data, null, 2)}`); 
    if (data.endDate) {
        data.endDate = new Date(data.endDate);
     }  
@@ -73,7 +73,7 @@ export const createProjectController = (projectService: ProjectService) => {
     const id = c.req.param('id');
     const data = await c.req.json();
   
-    console.log(`DETTE MÅ SKRIVES UT: ${JSON.stringify(data, null, 2)}`); 
+    console.log(`${JSON.stringify(data, null, 2)}`); 
     if (data.endDate) {
       data.endDate = new Date(data.endDate);
    }  
@@ -111,7 +111,7 @@ export const createProjectController = (projectService: ProjectService) => {
     if (!result.success) {
       return errorResponse(c, result.error.code as ErrorCode, result.error.message);
     }
-    console.log(`DET SKJER NOE LOL: ${JSON.stringify(result)}`)
+    console.log(`${JSON.stringify(result)}`)
     return c.json(result);
   });
 

@@ -80,6 +80,22 @@ section#bio-container {
   }
 }
 
+.project-detail {
+  display: flex;
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
+  gap: 1rem; 
+}
+.project-from-edit{
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
+  gap: 1rem; 
+}
 #form-section{
   background-image: url(https://i.pinimg.com/564x/d8/53/49/d85349f7e91f366aee9f3e21f468f4bf.jpg);
   background-size: cover;

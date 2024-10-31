@@ -1,7 +1,6 @@
 import React from 'react';
-import Footer from '../components/main/Footer';
-import Nav from './main/Nav';
-
+import Footer from './components/main/Footer';
+import Nav from './components/main/Nav'
 interface LayoutProps {
   children: React.ReactNode;
 }
