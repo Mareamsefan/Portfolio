@@ -86,7 +86,7 @@ export default function Project(project: ProjectProps &
     return (
         <section className="project-detail">
             {isEditing ? (
-                <form>
+                <form className="project-from-edit">
                     <label>
                         Name:<input type="text" value={editData.name} onChange={(e) => setEditData({ ...editData, name: e.target.value })} />
                     </label>
@@ -122,7 +122,7 @@ export default function Project(project: ProjectProps &
                     <button type="button" onClick={handleCancelEdit}>Cancel</button>
                 </form>
             ) : (
-                <div>
+                <div className="project-info">
                     <h2>{name}</h2>
                     <p>{description}</p>
                     <p><strong>Languages:</strong> {languages.join(', ')}</p>
@@ -133,12 +133,19 @@ export default function Project(project: ProjectProps &
                     <p><strong>Status:</strong> {status}</p>
                     <p><a href={githubRep} target="_blank" rel="noopener noreferrer">GitHub Repository</a></p>
                     {pictureURLs && (
-                        <div>
-                            {pictureURLs.map((url, index) => (
-                                <img key={index} src={url} alt={`Project ${index + 1}`} />
-                            ))}
-                        </div>
+                    <div>
+                        {pictureURLs.map((url, index) => (
+                        <img
+                            id="project-img"
+                            key={index}
+                            src={url}
+                            alt={`Project ${index + 1}`}
+                            style={{ border: "2px solid white", width: 400, height: 400}}
+                        />
+                        ))}
+                    </div>
                     )}
+
                     <button type="button" onClick={handleEditProject}>Edit Project</button>
                     <button type="button" onClick={handleRemoveProject}>Delete Project</button>
                 </div>

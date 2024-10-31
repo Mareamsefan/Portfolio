@@ -9,8 +9,8 @@ import { endpoints } from './config/urls';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import AddProject from './pages/AddProject';
-import useProjects from './hooks/UseProjects';
 import ProjectDetailsPage from './pages/ProjectDetailsPage';
+import useProjects from './hooks/useProjects';
 
 function App() {
   const { projectList, addProject, removeProject, updateProject, getProjectById } = useProjects();
