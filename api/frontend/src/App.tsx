@@ -8,34 +8,18 @@ import { ofetch } from 'ofetch';
 import { endpoints } from './config/urls';
 import About from './pages/About';
 import Contact from './pages/Contact';
-import Project from './pages/Project';
 import AddProject from './pages/AddProject';
+import useProjects from './hooks/UseProjects';
+import ProjectDetailsPage from './pages/ProjectDetailsPage';
 
 function App() {
-  const [projectList, setProjectList] = useState<ProjectProps[]>([]);
+  const { projectList, addProject, removeProject, updateProject, getProjectById } = useProjects();
   const [selectedProject, setSelectedProject] = useState<ProjectProps | null>(null);
 
-  //TODO: lage en customhook for loadprojects: 
-  useEffect(() => {
-      const loadProjects = async () => {
-        try {
-          const response = await ofetch(endpoints.projects);
-          setProjectList(response.data);
-        } catch (error) {
-          console.error("Error loading projects:", error);
-        }
-      };
-      loadProjects();
-  },[]);
 
-  const onAddProject = (newProject: ProjectProps) => {
-  
-    setProjectList((prev) => [...prev, newProject]);
-  };
+  const onAddProject = (newProject: ProjectProps) => addProject(newProject);
 
-  const onRemoveProject = (id: string) => {
-    setProjectList((prev) => prev.filter((project) => project.id !== id));
-  };
+  const onRemoveProject = (id: string) => removeProject(id);
 
   const handleProjectClick = (project: ProjectProps) => setSelectedProject(project);
 
@@ -43,33 +27,18 @@ function App() {
     try {
       const updatedProject = await ofetch(`${endpoints.projects}/${updatedProjectId}`);
 
-      setProjectList((prev) =>
-        prev.map((p) => (p.id === updatedProjectId ? updatedProject : p))
-      );
+      updateProject(updatedProject);
+
       if (selectedProject?.id === updatedProjectId) {
         setSelectedProject(updatedProject);
       }
+
     } catch (error) {
       console.error("Error fetching updated project:", error);
     }
   };
   
-    // ProjectDetails component to handle showing a specific project
-    const ProjectDetailsPage = () => {
-      const { projectId } = useParams<{ projectId: string }>();
-      const project = projectList.find(p => p.id === projectId) || null; // Find the project by ID 
-      
-  
-      return project ? (
-        <Project
-          {...project}
-          onRemoveProject={onRemoveProject}
-          onUpdateProject={onUpdateProject}
-        />
-      ) : (
-        <p>Project not found.</p>
-      );
-    };
+ 
 
   return (
     <Router>
@@ -88,7 +57,16 @@ function App() {
           />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact user={user} />} />
-          <Route path="/project/:projectId" element={<ProjectDetailsPage />} /> {/* New route for project details */}
+          <Route
+            path="/project/:projectId"
+            element={
+              <ProjectDetailsPage
+                getProjectById={getProjectById}
+                onRemoveProject={onRemoveProject}
+                onUpdateProject={onUpdateProject}
+              />
+            }
+          />
           <Route path='/addProject' element={<AddProject  onAddProject={onAddProject}/>}/>
         </Routes>
       </Layout>

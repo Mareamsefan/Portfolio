@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { Project as ProjectProps } from "../components/project/types";
+import { Project as ProjectProps } from "./types";
 import { format } from "date-fns";
-import { endpoints } from "../config/urls";
+import { endpoints } from "../../config/urls";
 import { useNavigate } from "react-router-dom";
 
 export default function Project(project: ProjectProps &
@@ -88,80 +88,31 @@ export default function Project(project: ProjectProps &
             {isEditing ? (
                 <form>
                     <label>
-                        Name:
-                        <input
-                            type="text"
-                            value={editData.name}
-                            onChange={(e) => setEditData({ ...editData, name: e.target.value })}
-                        />
+                        Name:<input type="text" value={editData.name} onChange={(e) => setEditData({ ...editData, name: e.target.value })} />
                     </label>
                     <label>
-                        Description:
-                        <textarea
-                            value={editData.description}
-                            onChange={(e) => setEditData({ ...editData, description: e.target.value })}
-                        />
+                        Description: <textarea value={editData.description} onChange={(e) => setEditData({ ...editData, description: e.target.value })} />
                     </label>
                     <label>
-                        Languages:
-                        <input
-                            type="text"
-                            value={editData.languages.join(', ')}
-                            onChange={(e) =>
-                                setEditData({ ...editData, languages: e.target.value.split(',').map(l => l.trim()) })
-                            }
-                        />
+                        Languages: <input type="text" value={editData.languages.join(', ')} onChange={(e) => setEditData({ ...editData, languages: e.target.value.split(',').map(l => l.trim()) })} />
                     </label>
                     <label>
-                        Frameworks:
-                        <input
-                            type="text"
-                            value={editData.frameworks.join(', ')}
-                            onChange={(e) =>
-                                setEditData({ ...editData, frameworks: e.target.value.split(',').map(f => f.trim()) })
-                            }
-                        />
+                        Frameworks: <input type="text" value={editData.frameworks.join(', ')} onChange={(e) => setEditData({ ...editData, frameworks: e.target.value.split(',').map(f => f.trim()) })} />
                     </label>
                     <label>
-                        Tags:
-                        <input
-                            type="text"
-                            value={editData.tags.join(', ')}
-                            onChange={(e) =>
-                                setEditData({ ...editData, tags: e.target.value.split(',').map(t => t.trim()) })
-                            }
-                        />
+                        Tags: <input type="text" value={editData.tags.join(', ')} onChange={(e) => setEditData({ ...editData, tags: e.target.value.split(',').map(t => t.trim()) })} />
                     </label>
                     <label>
-                        GitHub Repository:
-                        <input
-                            type="url"
-                            value={editData.githubRep}
-                            onChange={(e) => setEditData({ ...editData, githubRep: e.target.value })}
-                        />
+                        GitHub Repository: <input type="url" value={editData.githubRep} onChange={(e) => setEditData({ ...editData, githubRep: e.target.value })} />
                     </label>
                     <label>
-                        Start Date:
-                        <input
-                            type="date"
-                            value={formatDate(editData.startDate)} // Format for visning
-                            onChange={(e) => setEditData({ ...editData, startDate: new Date(e.target.value) })}
-                        />
+                        Start Date: <input type="date" value={formatDate(editData.startDate)} onChange={(e) => setEditData({ ...editData, startDate: new Date(e.target.value) })} />
                     </label>
                     <label>
-                        End Date:
-                        <input
-                            type="date"
-                            value={editData.endDate ? formatDate(editData.endDate) : ''}
-                            onChange={(e) => setEditData({ ...editData, endDate: new Date(e.target.value) || null })}
-                        />
+                        End Date: <input type="date" value={editData.endDate ? formatDate(editData.endDate) : ''} onChange={(e) => setEditData({ ...editData, endDate: new Date(e.target.value) })} />
                     </label>
                     <label>
-                        Status:
-                        <select
-                            value={editData.status}
-                            onChange={(e) => setEditData({ ...editData, status: e.target.value })}
-                        >
+                        Status: <select value={editData.status} onChange={(e) => setEditData({ ...editData, status: e.target.value })} >
                             <option value="in progress">In Progress</option>
                             <option value="completed">Completed</option>
                             <option value="on hold">On Hold</option>
@@ -184,7 +135,7 @@ export default function Project(project: ProjectProps &
                     {pictureURLs && (
                         <div>
                             {pictureURLs.map((url, index) => (
-                                <img key={index} src={url} alt={`Project image ${index + 1}`} />
+                                <img key={index} src={url} alt={`Project ${index + 1}`} />
                             ))}
                         </div>
                     )}
