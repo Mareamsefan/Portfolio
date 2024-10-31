@@ -1,7 +1,7 @@
 // src/App.tsx
-import { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, useParams } from 'react-router-dom';
-import Layout from './components/Layout';
+import { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+import Layout from './Layout';
 import Home, { user } from './pages/Home';
 import { Project as ProjectProps } from './components/project/types';
 import { ofetch } from 'ofetch';
